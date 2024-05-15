@@ -1,0 +1,112 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\balen\\OneDrive\\Documentos\\Seneca\\OOP-345\\OOP345ZDD\\WS1SolutionP2\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{EE9F6EBC-717A-4BBF-8DF5-D04C5BC07682}|WS1\\WS1.vcxproj|C:\\Users\\balen\\OneDrive\\Documentos\\Seneca\\OOP-345\\OOP345ZDD\\WS1SolutionP2\\WS1\\reflect.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{EE9F6EBC-717A-4BBF-8DF5-D04C5BC07682}|WS1\\WS1.vcxproj|solutionrelative:WS1\\reflect.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EE9F6EBC-717A-4BBF-8DF5-D04C5BC07682}|WS1\\WS1.vcxproj|C:\\Users\\balen\\OneDrive\\Documentos\\Seneca\\OOP-345\\OOP345ZDD\\WS1SolutionP2\\WS1\\FoodOrder.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EE9F6EBC-717A-4BBF-8DF5-D04C5BC07682}|WS1\\WS1.vcxproj|solutionrelative:WS1\\FoodOrder.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EE9F6EBC-717A-4BBF-8DF5-D04C5BC07682}|WS1\\WS1.vcxproj|C:\\Users\\balen\\OneDrive\\Documentos\\Seneca\\OOP-345\\OOP345ZDD\\WS1SolutionP2\\WS1\\FoodOrder.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EE9F6EBC-717A-4BBF-8DF5-D04C5BC07682}|WS1\\WS1.vcxproj|solutionrelative:WS1\\FoodOrder.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EE9F6EBC-717A-4BBF-8DF5-D04C5BC07682}|WS1\\WS1.vcxproj|C:\\Users\\balen\\OneDrive\\Documentos\\Seneca\\OOP-345\\OOP345ZDD\\WS1SolutionP2\\WS1\\w1_p1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{EE9F6EBC-717A-4BBF-8DF5-D04C5BC07682}|WS1\\WS1.vcxproj|solutionrelative:WS1\\w1_p1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EE9F6EBC-717A-4BBF-8DF5-D04C5BC07682}|WS1\\WS1.vcxproj|C:\\Users\\balen\\OneDrive\\Documentos\\Seneca\\OOP-345\\OOP345ZDD\\WS1SolutionP2\\WS1\\sample_output.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{EE9F6EBC-717A-4BBF-8DF5-D04C5BC07682}|WS1\\WS1.vcxproj|solutionrelative:WS1\\sample_output.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d3750d8a-574b-4fb3-b7e2-aa8af40e8231}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "reflect.txt",
+              "DocumentMoniker": "C:\\Users\\balen\\OneDrive\\Documentos\\Seneca\\OOP-345\\OOP345ZDD\\WS1SolutionP2\\WS1\\reflect.txt",
+              "RelativeDocumentMoniker": "WS1\\reflect.txt",
+              "ToolTip": "C:\\Users\\balen\\OneDrive\\Documentos\\Seneca\\OOP-345\\OOP345ZDD\\WS1SolutionP2\\WS1\\reflect.txt",
+              "RelativeToolTip": "WS1\\reflect.txt",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2024-05-15T12:52:33.012Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "sample_output.txt",
+              "DocumentMoniker": "C:\\Users\\balen\\OneDrive\\Documentos\\Seneca\\OOP-345\\OOP345ZDD\\WS1SolutionP2\\WS1\\sample_output.txt",
+              "RelativeDocumentMoniker": "WS1\\sample_output.txt",
+              "ToolTip": "C:\\Users\\balen\\OneDrive\\Documentos\\Seneca\\OOP-345\\OOP345ZDD\\WS1SolutionP2\\WS1\\sample_output.txt",
+              "RelativeToolTip": "WS1\\sample_output.txt",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAABEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2024-05-13T12:47:53.238Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "w1_p1.cpp",
+              "DocumentMoniker": "C:\\Users\\balen\\OneDrive\\Documentos\\Seneca\\OOP-345\\OOP345ZDD\\WS1SolutionP2\\WS1\\w1_p1.cpp",
+              "RelativeDocumentMoniker": "WS1\\w1_p1.cpp",
+              "ToolTip": "C:\\Users\\balen\\OneDrive\\Documentos\\Seneca\\OOP-345\\OOP345ZDD\\WS1SolutionP2\\WS1\\w1_p1.cpp",
+              "RelativeToolTip": "WS1\\w1_p1.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAAWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-05-13T13:56:41.541Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FoodOrder.h",
+              "DocumentMoniker": "C:\\Users\\balen\\OneDrive\\Documentos\\Seneca\\OOP-345\\OOP345ZDD\\WS1SolutionP2\\WS1\\FoodOrder.h",
+              "RelativeDocumentMoniker": "WS1\\FoodOrder.h",
+              "ToolTip": "C:\\Users\\balen\\OneDrive\\Documentos\\Seneca\\OOP-345\\OOP345ZDD\\WS1SolutionP2\\WS1\\FoodOrder.h",
+              "RelativeToolTip": "WS1\\FoodOrder.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAhAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-05-12T17:18:34.379Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FoodOrder.cpp",
+              "DocumentMoniker": "C:\\Users\\balen\\OneDrive\\Documentos\\Seneca\\OOP-345\\OOP345ZDD\\WS1SolutionP2\\WS1\\FoodOrder.cpp",
+              "RelativeDocumentMoniker": "WS1\\FoodOrder.cpp",
+              "ToolTip": "C:\\Users\\balen\\OneDrive\\Documentos\\Seneca\\OOP-345\\OOP345ZDD\\WS1SolutionP2\\WS1\\FoodOrder.cpp",
+              "RelativeToolTip": "WS1\\FoodOrder.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACkAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-05-12T17:30:10.564Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
