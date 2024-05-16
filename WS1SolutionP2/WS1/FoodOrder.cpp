@@ -142,6 +142,9 @@ namespace seneca {
 		m_priceFood = price;
 		m_special = special;
 
+		delete[] m_customerName;
+		delete[] m_descriptionFood;
+
 		return is;
 	}
 }
