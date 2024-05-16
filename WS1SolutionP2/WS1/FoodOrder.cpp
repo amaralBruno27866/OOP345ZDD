@@ -86,6 +86,11 @@ namespace seneca {
 		static int count = 0;
 		++count;
 
+		double priceWithTax = (m_priceFood * g_taxrate) + m_priceFood;
+
+		double specialPrice = priceWithTax - g_dailydiscount;
+
+
 		if (m_customerName[0] == '\0') {
 			std::cout << std::setw(2) << std::left << count << ". " << "No Order\n";
 		}
@@ -93,10 +98,11 @@ namespace seneca {
 			std::cout << std::setw(2) << std::left << count << ". "
 				<< std::setw(10) << std::left << m_customerName << '|'
 				<< std::setw(25) << std::left << m_descriptionFood << '|'
-				<< std::setw(12) << std::left << std::fixed << std::setprecision(2) << m_priceFood * (1 + g_taxrate) << '|';
+				<< std::setw(12) << std::left << std::fixed 
+				<< std::setprecision(2) << priceWithTax << '|';
 
 			if (m_special) {
-				std::cout << std::setw(13) << std::right << m_priceFood * (1 + g_taxrate) / g_dailydiscount;
+				std::cout << std::setw(13) << std::right << specialPrice;
 			}
 
 			std::cout << std::endl;

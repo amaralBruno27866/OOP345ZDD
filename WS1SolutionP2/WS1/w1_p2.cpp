@@ -51,11 +51,11 @@ int main(int argc, char* argv[]) {
 	{
 
 		// Rates change from day 1 to day 2
-		if (day == 1){
+		if (day == 1) {
 			g_taxrate = 0.13;
 			g_dailydiscount = 1.15;
 		}
-		else{
+		else {
 			g_taxrate = 0.14;
 			g_dailydiscount = 1.20;
 		}
