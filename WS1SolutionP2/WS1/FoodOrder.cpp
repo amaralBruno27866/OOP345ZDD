@@ -119,10 +119,12 @@ namespace seneca {
 		signed char symbol = {};
 		bool special = false;
 
+		delete[] m_customerName;
 		getline(is, customerName, ',');
 		m_customerName = new char[customerName.length() + 1];
 		strcpy(m_customerName, customerName.c_str());
 
+		delete[] m_descriptionFood;
 		getline(is, descriptionFood, ',');
 		m_descriptionFood = new char[descriptionFood.length() + 1];
 		strcpy(m_descriptionFood, descriptionFood.c_str());
@@ -140,10 +142,7 @@ namespace seneca {
 		special = (symbol == 'Y');
 
 		m_priceFood = price;
-		m_special = special;
-
-		delete[] m_customerName;
-		delete[] m_descriptionFood;
+		m_special = special;		
 
 		return is;
 	}
