@@ -21,8 +21,8 @@ piece of work is entirely of my own creation.
 #include <iomanip>
 #include <fstream>
 
-static double g_taxrate{};
-static double g_dailydiscount{};
+extern double g_taxrate;
+extern double g_dailydiscount;
 
 namespace seneca {
 	class FoodOrder	

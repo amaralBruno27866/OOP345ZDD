@@ -21,6 +21,9 @@ piece of work is entirely of my own creation.
 
 #include "FoodOrder.h"
 
+double g_taxrate = 0.0;
+double g_dailydiscount = 0.0;
+
 namespace seneca {
 	FoodOrder::FoodOrder()
 	{

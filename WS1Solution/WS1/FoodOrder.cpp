@@ -21,6 +21,9 @@ piece of work is entirely of my own creation.
 
 #include "FoodOrder.h"
 
+double g_taxrate = 0.0;
+double g_dailydiscount = 0.0;
+
 using namespace std;
 namespace seneca {
 	FoodOrder::FoodOrder()
@@ -29,7 +32,6 @@ namespace seneca {
 		m_descriptionFood[0] = '\0';
 		m_priceFood = 0.0;
 		m_special = false;
-
 	}
 
 	FoodOrder::FoodOrder(char customerName[10], char descriptionFood[25], double price, bool special)
