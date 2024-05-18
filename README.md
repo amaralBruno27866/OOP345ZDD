@@ -2,7 +2,7 @@
 - Bruno Amaral
 - Student No: 143766228
 - E-mail id: bamaral2@myseneca.ca
-- Section: OPP345ZDD
+- Section: ZDD
 
 # WORKSHOPS
 - Workshop #1 Part1 - done
