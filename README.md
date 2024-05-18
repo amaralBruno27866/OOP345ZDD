@@ -5,5 +5,5 @@
 - Section: OPP345ZDD
 
 # WORKSHOPS
-- Workshop #1 Part1 -  /  /  /
-- Workshop #1 Part2 - /  /  /
+- Workshop #1 Part1 - done
+- Workshop #1 Part2 - done
