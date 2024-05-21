@@ -7,11 +7,11 @@
 #include <chrono>
 
 namespace seneca {
+	const int MAX_TASKS = 10;
+
 	typedef std::chrono::steady_clock::duration clockDuration;
 	typedef std::chrono::steady_clock::time_point clockTime;
 	typedef std::chrono::steady_clock clock;
-
-	extern const int MAX_NUM_OF_TASK = 10;
 
 	struct Task {
 		std::string task_name;
@@ -26,10 +26,10 @@ namespace seneca {
 		int m_numOfRecord;
 		clockTime m_startTime;
 		clockTime m_endTime;
-		Task m_tasks[MAX_NUM_OF_TASK];
+		Task m_tasks[MAX_TASKS];
 	public:
 		TimedTask();
-		TimedTask(int numOfRecord, clockTime startTime, clockTime endTime, Task tasks[MAX_NUM_OF_TASK]);
+		TimedTask(int numOfRecord, clockTime startTime, clockTime endTime, Task tasks[MAX_TASKS]);
 		TimedTask(const TimedTask& tt);
 		TimedTask& operator=(const TimedTask& tt);
 		~TimedTask();

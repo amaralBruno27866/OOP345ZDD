@@ -19,11 +19,11 @@ namespace seneca {
 		m_numOfRecord = 0;
 	}
 
-	TimedTask::TimedTask(int numOfRecord, clockTime startTime, clockTime endTime, Task tasks[MAX_NUM_OF_TASK]) {
+	TimedTask::TimedTask(int numOfRecord, clockTime startTime, clockTime endTime, Task tasks[MAX_TASKS]) {
 		m_numOfRecord = numOfRecord;
 		m_startTime = startTime;
 		m_endTime = endTime;
-		for (int i = 0; i < MAX_NUM_OF_TASK; i++) {
+		for (int i = 0; i < 10; i++) {
 			m_tasks[i] = tasks[i];
 		}
 	}
@@ -47,7 +47,7 @@ namespace seneca {
 		m_numOfRecord = tt.m_numOfRecord;
 		m_startTime = tt.m_startTime;
 		m_endTime = tt.m_endTime;
-		for (int i = 0; i < MAX_NUM_OF_TASK; i++) {
+		for (int i = 0; i < MAX_TASKS; i++) {
 			m_tasks[i] = tt.m_tasks[i];
 		}
 	}
@@ -71,7 +71,7 @@ namespace seneca {
 		os << "Execution Times:" << endl;
 		os << "--------------------------" << endl;
 
-		for (int i = 0; i < MAX_NUM_OF_TASK; i++) {
+		for (int i = 0; i < MAX_TASKS; i++) {
 			// Print the task name
 			os << left << setw(21) << tt.m_tasks[i].task_name << " ";
 
@@ -83,5 +83,7 @@ namespace seneca {
 		}
 
 		os << "--------------------------" << endl;
+
+		return os;
 	}
 }
