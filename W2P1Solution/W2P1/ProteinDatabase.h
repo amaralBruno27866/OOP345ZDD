@@ -1,5 +1,5 @@
-#ifndef PROTEIN_DATABASE_SENECA
-#define PROTEIN_DATABASE_SENECA
+#ifndef SENECA_PROTEIN_DATABASE_H
+#define SENECA_PROTEIN_DATABASE_H
 
 #include <fstream>
 #include <string>
@@ -23,4 +23,4 @@ namespace seneca {
 	};
 }
 
-#endif // !PROTEIN_DATABASE_SENECA
+#endif // !SENECA_PROTEIN_DATABASE_H
