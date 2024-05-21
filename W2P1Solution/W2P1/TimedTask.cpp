@@ -72,14 +72,16 @@ namespace seneca {
 		os << "--------------------------" << endl;
 
 		for (int i = 0; i < MAX_TASKS; i++) {
-			// Print the task name
-			os << left << setw(21) << tt.m_tasks[i].task_name << " ";
+			if (!tt.m_tasks[i].task_name.empty()) {
+				// Print the task name
+				os << left << setw(21) << tt.m_tasks[i].task_name << " ";
 
-			// Print the task duration
-			os << right << setw(13) << tt.m_tasks[i].duration.count() << " ";
+				// Print the task duration
+				os << right << setw(13) << tt.m_tasks[i].duration.count() << " ";
 
-			// Print the task unit time
-			os << tt.m_tasks[i].unit_of_time << endl;
+				// Print the task unit time
+				os << tt.m_tasks[i].unit_of_time << endl;
+			}
 		}
 
 		os << "--------------------------" << endl;

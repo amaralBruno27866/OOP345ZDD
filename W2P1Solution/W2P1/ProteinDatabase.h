@@ -13,7 +13,10 @@ namespace seneca {
 	public:
 		ProteinDatabase();
 		ProteinDatabase(const std::string& fileName);
+		ProteinDatabase(const ProteinDatabase& pd);
+		ProteinDatabase& operator=(const ProteinDatabase& pd);
 		~ProteinDatabase();
+		void init(const ProteinDatabase& pd);
 
 		size_t size() const { return m_numOfSequences; };
 		std::string operator[] (size_t index);
