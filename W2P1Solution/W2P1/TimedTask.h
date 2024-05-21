@@ -1,5 +1,5 @@
-#ifndef SENECA_TIMED_TASK_H
-#define SENECA_TIMED_TASK_H
+#ifndef SENECA_TIMEDTASK_H
+#define SENECA_TIMEDTASK_H
 
 #include <iostream>
 #include <iomanip>
@@ -42,4 +42,4 @@ namespace seneca {
 	};
 }
 
-#endif // !SENECA_TIMED_TASK_H
+#endif // !SENECA_TIMEDTASK_H
