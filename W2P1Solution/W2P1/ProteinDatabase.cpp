@@ -7,8 +7,6 @@
 #include "ProteinDatabase.h"
 #include "TimedTask.h"
 
-// test git
-
 namespace seneca {
 	ProteinDatabase::ProteinDatabase() {
 		m_sequences = nullptr;
