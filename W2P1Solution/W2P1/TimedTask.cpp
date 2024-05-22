@@ -68,6 +68,7 @@ namespace seneca {
 	}
 
 	ostream& operator<<(ostream& os, const TimedTask& tt) {
+		os << "--------------------------" << endl;
 		os << "Execution Times:" << endl;
 		os << "--------------------------" << endl;
 
