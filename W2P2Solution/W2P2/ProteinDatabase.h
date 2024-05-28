@@ -31,6 +31,7 @@ namespace seneca {
 		~ProteinDatabase();
 		void init(const ProteinDatabase& pd);
 
+		// Move Operator
 		ProteinDatabase(ProteinDatabase&& pd) noexcept;
 		ProteinDatabase& operator=(ProteinDatabase&& pd) noexcept;
 
