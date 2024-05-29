@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <algorithm>
+#include <limits>
 #include "Book.h"
 
 namespace seneca {
