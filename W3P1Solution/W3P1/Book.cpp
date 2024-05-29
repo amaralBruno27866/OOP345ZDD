@@ -62,7 +62,7 @@ namespace seneca {
 				<< " | (" << left << std::fixed << std::setprecision(6) << pagesPerChapter << std::defaultfloat << ")    ";
 		}
 		else {
-			os << "Invalid Book";
+			os << "| Invalid book data";
 		}
 
 		return os;
