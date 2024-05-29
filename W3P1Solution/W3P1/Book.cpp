@@ -59,7 +59,7 @@ namespace seneca {
 
 			os << right << setw(56)
 				<< m_title + "," + to_string(m_numChapters) + "," + to_string(m_numPages)
-				<< " | " << left << setw(15) << pagesPerChapter;
+				<< " | (" << left << std::fixed << std::setprecision(6) << pagesPerChapter << std::defaultfloat << ")    ";
 		}
 		else {
 			os << "Invalid Book";

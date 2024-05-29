@@ -63,17 +63,28 @@ namespace seneca {
 		}
 
 		void print(std::ostream& os) const {
+			os << "[";
 			for (unsigned i = 0; i < m_size; ++i) {
-				os << m_items[i] << std::endl;
+				os << m_items[i];
+				if (i < m_size - 1) {
+					os << ", ";
+				}
 			}
+			os << "]" << std::endl;
 		}
 	};
 
 	template <typename T, unsigned C>
-	T Collection<T, C>::m_smallestItem = T();
+	T Collection<T, C>::m_smallestItem = std::numeric_limits<T>::max();
 
 	template <typename T, unsigned C>
-	T Collection<T, C>::m_largestItem = T();
+	T Collection<T, C>::m_largestItem = std::numeric_limits<T>::lowest();
+
+	template<>
+	Book Collection<Book, 10>::m_smallestItem = Book("", 1, 10000);
+
+	template<>
+	Book Collection<Book, 10>::m_largestItem = Book("", 10000, 1);
 }
 
 #endif // !SENECA_COLLECTION_H
