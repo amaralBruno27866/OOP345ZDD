@@ -68,7 +68,7 @@ namespace seneca {
 			for (unsigned i = 0; i < m_size; ++i) {
 				os << m_items[i];
 				if (i < m_size - 1) {
-					os << ", ";
+					os << ",";
 				}
 			}
 			os << "]" << std::endl;
