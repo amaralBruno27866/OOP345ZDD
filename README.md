@@ -9,4 +9,4 @@
 - Workshop #1 Part2 - done
 - Workshop #2 Part1 - done
 - Workshop #2 Part2 - done
-- Workshop #3 Part 1 - 90%
+- Workshop #3 Part1 - done
