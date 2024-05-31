@@ -1,3 +1,15 @@
+/*/////////////////////////////////////////////////////////////////////////
+						  Workshop - #3 P2
+Full Name  : Bruno Amaral
+Student ID#: 143766228
+Email      : bamaral2@myseneca.ca
+Section    : ZDD
+
+Authenticity Declaration:
+I declare this submission is the result of my own work and has not been
+shared with any other student or 3rd party content provider. This submitted
+piece of work is entirely of my own creation.
+/////////////////////////////////////////////////////////////////////////*/
 #ifndef SENECA_COLLECTION_H
 #define SENECA_COLLECTION_H
 
@@ -28,6 +40,14 @@ namespace seneca {
 			}
 		}
 
+		T& operator[]{
+			return m_items[index];
+		}
+
+		void incrSize() {
+			++m_size;
+		}
+
 	public:
 		Collection() : m_size(0) {}
 
@@ -48,19 +68,13 @@ namespace seneca {
 		}
 
 		bool operator+=(const T& src) {
-			bool isTrue = false;
-
 			if (m_size >= C) {
-				isTrue = false;
+				return false;
 			}
-			else {
-				setSmallestItem(src);
-				setLargestItem(src);
-				m_items[m_size++] = src;
-				isTrue = true;
-			}
-
-			return isTrue;
+			setSmallestItem(src);
+			setLargestItem(src);
+			m_items[m_size++] = src;
+			return true;
 		}
 
 		void print(std::ostream& os) const {
@@ -68,10 +82,10 @@ namespace seneca {
 			for (unsigned i = 0; i < m_size; ++i) {
 				os << m_items[i];
 				if (i < m_size - 1) {
-					os << ",";
+					os << ", ";
 				}
 			}
-			os << "]" << std::endl;
+			os << "]";
 		}
 	};
 
@@ -82,11 +96,24 @@ namespace seneca {
 	T Collection<T, C>::m_largestItem = std::numeric_limits<T>::lowest();
 
 	template<>
-	Book Collection<Book, 10>::m_smallestItem = Book("", 1, 10000);
+	Book Collection<Book, 72>::m_smallestItem = Book("", 1, 10000);
 
 	template<>
-	Book Collection<Book, 10>::m_largestItem = Book("", 10000, 1);
+	Book Collection<Book, 72>::m_largestItem = Book("", 10000, 1);
+
+	template<>
+	void Collection<Book, 10>::print(std::ostream& os) {
+		for (unsigned i = 0; i < m_size; ++i) {
+			os << m_items[i] << std::endl;
+		}
+	}
+
+	template<>
+	void Collection<Book, 72>::print(std::ostream& os) {
+		for (unsigned i = 0; i < m_size; ++i) {
+			os << m_items[i] << std::endl;
+		}
+	}
 }
 
 #endif // !SENECA_COLLECTION_H
-
