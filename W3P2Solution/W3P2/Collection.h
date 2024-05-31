@@ -28,6 +28,22 @@ namespace seneca {
 			}
 		}
 
+		T& operator[] {
+			if (index >= m_size) {
+				throw std::out_of_range("Index out of range");
+			}
+			return m_items[index];
+		}
+
+		void incrSize() {
+			if (m_size < C) {
+				++m_size;
+			}
+			else {
+				throw std::out_of_range("Collection is already full");
+			}
+		}
+
 	public:
 		Collection() : m_size(0) {}
 
@@ -86,6 +102,12 @@ namespace seneca {
 
 	template<>
 	Book Collection<Book, 10>::m_largestItem = Book("", 10000, 1);
+
+	template<>
+	Book Collection<Book, 72>::m_smallestItem = Book("", 1, 10000);
+
+	template<>
+	Book Collection<Book, 72>::m_largestItem = Book("", 10000, 1);
 }
 
 #endif // !SENECA_COLLECTION_H
