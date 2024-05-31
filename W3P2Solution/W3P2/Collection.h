@@ -28,13 +28,6 @@ namespace seneca {
 			}
 		}
 
-		T& operator[] {
-			if (index >= m_size) {
-				throw std::out_of_range("Index out of range");
-			}
-			return m_items[index];
-		}
-
 		void incrSize() {
 			if (m_size < C) {
 				++m_size;
@@ -42,6 +35,13 @@ namespace seneca {
 			else {
 				throw std::out_of_range("Collection is already full");
 			}
+		}
+
+		T& operator[] {
+			if (index >= m_size) {
+				throw std::out_of_range("Index out of range");
+			}
+			return m_items[index];
 		}
 
 	public:
@@ -79,7 +79,7 @@ namespace seneca {
 			return isTrue;
 		}
 
-		void print(std::ostream& os) const {
+		virtual void print(std::ostream& os) const {
 			os << "[";
 			for (unsigned i = 0; i < m_size; ++i) {
 				os << m_items[i];
