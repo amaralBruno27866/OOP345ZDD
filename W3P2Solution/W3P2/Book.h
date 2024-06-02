@@ -35,8 +35,8 @@ namespace seneca {
 		bool operator>(const Book& book) const;
 
 		std::ostream& print(std::ostream& os) const;
-		friend std::ostream& operator<<(std::ostream& os, const Book& bk);
 	};
+	std::ostream& operator<<(std::ostream& os, const Book& bk);
 }
 
 #endif // !SENECA_BOOK_H
