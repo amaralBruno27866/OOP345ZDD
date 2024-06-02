@@ -56,9 +56,9 @@ namespace seneca {
 			return m_items[index];
 		}
 
-		T& getItem(unsigned int index) {
-			if (index <= m_size) {
-				return m_items[index];
+		T& getItem(unsigned int i) {
+			if (i <= m_size) {
+				return m_items[i];
 			}
 			else {
 				throw std::out_of_range("Index out of range");
