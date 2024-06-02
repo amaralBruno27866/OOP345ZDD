@@ -10,7 +10,7 @@ namespace seneca {
 	template <typename T, unsigned C>
 	class Collection {
 	private:
-		T m_items[C];
+		T m_items[C]{};
 		unsigned m_size;
 		static T m_smallestItem;
 		static T m_largestItem;
@@ -37,11 +37,20 @@ namespace seneca {
 			}
 		}
 
-		T& operator[] {
+		T& operator[](unsigned int index) {
 			if (index >= m_size) {
 				throw std::out_of_range("Index out of range");
 			}
 			return m_items[index];
+		}
+
+		T& getItem(unsigned int index) {
+			if (index <= m_size) {
+				return m_items[index];
+			}
+			else {
+				throw std::out_of_range("Index out of range");
+			}
 		}
 
 	public:
@@ -63,7 +72,7 @@ namespace seneca {
 			return C;
 		}
 
-		bool operator+=(const T& src) {
+		virtual bool operator+=(const T& src) {
 			bool isTrue = false;
 
 			if (m_size >= C) {
@@ -81,7 +90,7 @@ namespace seneca {
 
 		virtual void print(std::ostream& os) const {
 			os << "[";
-			for (unsigned i = 0; i < m_size; ++i) {
+			for (unsigned int i = 0; i < m_size; ++i) {
 				os << m_items[i];
 				if (i < m_size - 1) {
 					os << ",";
@@ -108,6 +117,24 @@ namespace seneca {
 
 	template<>
 	Book Collection<Book, 72>::m_largestItem = Book("", 10000, 1);
+
+	template<>
+	void Collection<Book, 10>::print(std::ostream& os) const {
+		os << "| ---------------------------------------------------------------------------|\n";
+		for (unsigned int i = 0; i < m_size; ++i) {
+			os << "|" << i + 1 << "." << m_items[i] << "|\n";
+		}
+		os << "| ---------------------------------------------------------------------------|\n";
+	}
+
+	template<>
+	void Collection<Book, 72>::print(std::ostream& os) const {
+		os << "| ---------------------------------------------------------------------------|\n";
+		for (unsigned int i = 0; i < m_size; ++i) {
+			os << "|" << i + 1 << "." << m_items[i] << "|\n";
+		}
+		os << "| ---------------------------------------------------------------------------|\n";
+	}
 }
 
 #endif // !SENECA_COLLECTION_H
