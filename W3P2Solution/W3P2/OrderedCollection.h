@@ -10,8 +10,8 @@ I declare this submission is the result of my own work and has not been
 shared with any other student or 3rd party content provider. This submitted
 piece of work is entirely of my own creation.
 /////////////////////////////////////////////////////////////////////////*/
-#ifndef SENECA_ORDERED_COLLECTION_H
-#define SENECA_ORDERED_COLLECTION_H
+#ifndef SENECA_ORDEREDCOLLECTION_H
+#define SENECA_ORDEREDCOLLECTION_H
 
 #include "Collection.h"
 
@@ -44,4 +44,4 @@ namespace seneca {
 	};
 }
 
-#endif // !SENECA_ORDERED_COLLECTION_H
+#endif // !SENECA_ORDEREDCOLLECTION_H
