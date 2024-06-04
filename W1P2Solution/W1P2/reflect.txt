@@ -1,0 +1,15 @@
+/*/////////////////////////////////////////////////////////////////////////
+						  Workshop - #1 P1
+Full Name  : Bruno Amaral
+Student ID#: 143766228
+Email      : bamaral2@myseneca.ca
+Section    : ZDD
+
+Authenticity Declaration:
+I declare this submission is the result of my own work and has not been
+shared with any other student or 3rd party content provider. This submitted
+piece of work is entirely of my own creation.
+/////////////////////////////////////////////////////////////////////////*/
+
+On this project we practices some concepts that I learned in OOP244, like deep copy, constructors, classes and more, we used this knowledge to build this simple software that have like goal open, read and print on screen the content in the files, but different the last projects, here we input the file direct in execution time, this meaning that we can try use other files for testing our project, other challenger that I had here was the concept of global variable, not for the usual, but for the fact that on main file access and handle the value for this
+variables depending of some conditions, the first time that I tried  execute the code, the calc on display() function doesn't work properly, the result for Special Price always return 0.000, and this meaning that the global variables that was used on this calcs had the valor 00000, for  fix it this, I change the declarations on FoofOrder.h for make this variables "extern" and than I initialize this variables on FoodOrder.cpp, after this the code works perfectly.
