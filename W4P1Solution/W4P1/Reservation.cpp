@@ -131,7 +131,7 @@ namespace seneca {
 		os << "Reservation ";
 
 		os << std::setw(10) << std::setfill(' ') << std::right << res.m_reservation_id;
-		os << ":";
+		os << ": ";
 
 		os << std::setw(20) << std::setfill(' ') << std::right << res.m_name;
 
