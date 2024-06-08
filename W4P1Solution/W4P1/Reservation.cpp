@@ -71,42 +71,74 @@ namespace seneca {
 	Reservation::Reservation(const std::string& res) {
 		size_t begin = 0;
 		size_t end = res.find(':');
+
+		// Extracting the reservation ID
 		std::string id = res.substr(begin, end - begin);
+		id.erase(0, id.find_first_not_of(' ')); // Trim leading spaces
+		id.erase(id.find_last_not_of(' ') + 1); // Trim trailing spaces
+		strncpy(m_reservation_id, id.c_str(), 10);
+		m_reservation_id[10] = '\0';
 
-		strncpy(m_reservation_id, id.c_str(), 9);
-		m_reservation_id[9] = '\0';
 		begin = end + 1;
 		end = res.find(',', begin);
 
-		m_name = res.substr(begin, end - begin);
+		// Extracting the name
+		std::string name = res.substr(begin, end - begin);
+		name.erase(0, name.find_first_not_of(' ')); // Trim leading spaces
+		name.erase(name.find_last_not_of(' ') + 1); // Trim trailing spaces
+		m_name = name;
+
 		begin = end + 1;
 		end = res.find(',', begin);
 
-		m_email = res.substr(begin, end - begin);
+		// Extracting the email
+		std::string email = res.substr(begin, end - begin);
+		email.erase(0, email.find_first_not_of(' ')); // Trim leading spaces
+		email.erase(email.find_last_not_of(' ') + 1); // Trim trailing spaces
+		email.insert(0, "<");
+		email.append(">");
+		m_email = email;
+
 		begin = end + 1;
 		end = res.find(',', begin);
 
-		m_party_size = std::stoi(res.substr(begin, end - begin));
+		// Extracting the number of people
+		std::string party_size_str = res.substr(begin, end - begin);
+		party_size_str.erase(0, party_size_str.find_first_not_of(' ')); // Trim leading spaces
+		party_size_str.erase(party_size_str.find_last_not_of(' ') + 1); // Trim trailing spaces
+		m_party_size = std::stoi(party_size_str);
+
 		begin = end + 1;
 		end = res.find(',', begin);
 
-		m_day = std::stoi(res.substr(begin, end - begin));
-		begin = end + 1;
-		end = res.find(',', begin);
+		// Extracting the day
+		std::string day_str = res.substr(begin, end - begin);
+		day_str.erase(0, day_str.find_first_not_of(' ')); // Trim leading spaces
+		day_str.erase(day_str.find_last_not_of(' ') + 1); // Trim trailing spaces
+		m_day = std::stoi(day_str);
 
-		m_hour = std::stoi(res.substr(begin));
+		begin = end + 1;
+
+		// Extracting the hour
+		std::string hour_str = res.substr(begin);
+		hour_str.erase(0, hour_str.find_first_not_of(' ')); // Trim leading spaces
+		hour_str.erase(hour_str.find_last_not_of(' ') + 1); // Trim trailing spaces
+		m_hour = std::stoi(hour_str);
 	}
 
 	std::ostream& operator<<(std::ostream& os, const Reservation& res) {
 		// Print the reservation ID, name, and email
 		os << "Reservation ";
 
-		os << std::setw(10) << std::left << res.m_reservation_id;
+		os << std::setw(10) << std::setfill(' ') << std::right << res.m_reservation_id;
 		os << ":";
 
-		os << std::setw(20) << std::right << res.m_name;
+		os << std::setw(20) << std::setfill(' ') << std::right << res.m_name;
 
-		os << " <" << std::setw(24) << std::right << res.m_email << ">";
+		//os << "  <" << res.m_email << ">    ";
+		os << "  ";
+		os << std::setw(20) << std::left << res.m_email;
+		//os << "    ";
 
 		// Determine the meal type based on the hour
 		std::string meal;
