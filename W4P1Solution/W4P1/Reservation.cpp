@@ -135,10 +135,8 @@ namespace seneca {
 
 		os << std::setw(20) << std::setfill(' ') << std::right << res.m_name;
 
-		//os << "  <" << res.m_email << ">    ";
 		os << "  ";
 		os << std::setw(20) << std::left << res.m_email;
-		//os << "    ";
 
 		// Determine the meal type based on the hour
 		std::string meal;
