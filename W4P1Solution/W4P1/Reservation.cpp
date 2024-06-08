@@ -123,7 +123,7 @@ namespace seneca {
 		std::string hour_str = res.substr(begin);
 		hour_str.erase(0, hour_str.find_first_not_of(' ')); // Trim leading spaces
 		hour_str.erase(hour_str.find_last_not_of(' ') + 1); // Trim trailing spaces
-		m_hour = std::stoi(hour_str);
+		m_hour = std::stoi(hour_str);	
 	}
 
 	std::ostream& operator<<(std::ostream& os, const Reservation& res) {
@@ -155,7 +155,12 @@ namespace seneca {
 
 		// Print the meal type, day, hour, and party size
 		os << "    " << meal << " on day ";
-		os << res.m_day << " @ " << std::setw(2) << std::setfill('0') << (res.m_hour % 24) << ":00";
+		os << res.m_day << " @ ";
+		
+		std::string time = res.m_hour < 10 ? "" + std::to_string(res.m_hour) : std::to_string(res.m_hour);
+
+		os << time << ":00";
+
 		os << " for " << res.m_party_size << (res.m_party_size == 1 ? " person." : " people.");
 		os << std::endl;
 
