@@ -1,10 +1,10 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <string>
+#include <cstring>
 #include <iomanip>
 #include "Reservation.h"
 
-using namespace std;
 namespace seneca {
 	Reservation::Reservation() {
 		m_reservation_id[0] = '\0';
@@ -15,7 +15,7 @@ namespace seneca {
 		m_hour = 0;
 	}
 
-	Reservation::Reservation(char reservation_id[10], string name, string email, int party_size, int day, int hour) {
+	Reservation::Reservation(char reservation_id[10], std::string name, std::string email, int party_size, int day, int hour) {
 		strncpy(m_reservation_id, reservation_id, 9);
 		m_reservation_id[9] = '\0';
 
@@ -68,10 +68,10 @@ namespace seneca {
 		this->m_hour = time;
 	}
 
-	Reservation::Reservation(const string& res) {
+	Reservation::Reservation(const std::string& res) {
 		size_t begin = 0;
 		size_t end = res.find(':');
-		string id = res.substr(begin, end - begin);
+		std::string id = res.substr(begin, end - begin);
 
 		strncpy(m_reservation_id, id.c_str(), 9);
 		m_reservation_id[9] = '\0';
@@ -86,42 +86,48 @@ namespace seneca {
 		begin = end + 1;
 		end = res.find(',', begin);
 
-		m_party_size = stoi(res.substr(begin, end - begin));
+		m_party_size = std::stoi(res.substr(begin, end - begin));
 		begin = end + 1;
 		end = res.find(',', begin);
 
-		m_day = stoi(res.substr(begin, end - begin));
+		m_day = std::stoi(res.substr(begin, end - begin));
 		begin = end + 1;
 		end = res.find(',', begin);
 
-		m_hour = stoi(res.substr(begin));
+		m_hour = std::stoi(res.substr(begin));
 	}
 
 	std::ostream& operator<<(std::ostream& os, const Reservation& res) {
-		int temp_id = stoi(res.m_reservation_id);
+		// Print the reservation ID, name, and email
+		os << "Reservation ";
 
-		// Imprime o ID da reserva e o nome
-		os << std::setw(10) << std::right << res.getReservationID(temp_id) << ": "
-			<< std::setw(20) << std::right << res.getName() << "  <" << res.getEmail() << ">    ";
+		os << std::setw(10) << std::left << res.m_reservation_id;
+		os << ":";
 
-		// Determina o tipo de refeição com base na hora
+		os << std::setw(20) << std::right << res.m_name;
+
+		os << " <" << std::setw(24) << std::right << res.m_email << ">";
+
+		// Determine the meal type based on the hour
 		std::string meal;
-
-		if (res.getHour() >= 6 && res.getHour() <= 9) {
+		if (res.m_hour >= 6 && res.m_hour <= 9) {
 			meal = "Breakfast";
 		}
-		else if (res.getHour() >= 11 && res.getHour() <= 15) {
+		else if (res.m_hour >= 11 && res.m_hour <= 15) {
 			meal = "Lunch";
 		}
-		else if (res.getHour() >= 17 && res.getHour() <= 21) {
+		else if (res.m_hour >= 17 && res.m_hour <= 21) {
 			meal = "Dinner";
 		}
 		else {
 			meal = "Drinks";
 		}
 
-		os << meal << " on day " << res.getDay() << " @ " << res.getHour() << ":00"
-			<< " for " << res.getPartySize() << (res.getPartySize() == 1 ? " person." : " people.");
+		// Print the meal type, day, hour, and party size
+		os << "    " << meal << " on day ";
+		os << res.m_day << " @ " << std::setw(2) << std::setfill('0') << (res.m_hour % 24) << ":00";
+		os << " for " << res.m_party_size << (res.m_party_size == 1 ? " person." : " people.");
+		os << std::endl;
 
 		return os;
 	}
