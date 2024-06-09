@@ -1,3 +1,16 @@
+/*/////////////////////////////////////////////////////////////////////////
+				  Workshop - #4 P2
+Full Name  : Bruno Amaral
+Student ID#: 143766228
+Email      : bamaral2@myseneca.ca
+Section    : ZDD
+
+Authenticity Declaration:
+I declare this submission is the result of my own work and has not been
+shared with any other student or 3rd party content provider. This submitted
+piece of work is entirely of my own creation.
+/////////////////////////////////////////////////////////////////////////*/
+
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <string>
@@ -6,44 +19,36 @@
 #include "Reservation.h"
 
 namespace seneca {
-	Reservation::Reservation() {
-		m_reservation_id[0] = '\0';
-		m_name = "";
-		m_email = "";
-		m_party_size = 0;
-		m_day = 0;
-		m_hour = 0;
-	}
+	Reservation::Reservation() : m_reservation_id{}, m_name(""), m_email(""), m_party_size(0), m_day(0), m_hour(0) {}
 
-	Reservation::Reservation(char reservation_id[10], std::string name, std::string email, int party_size, int day, int hour) {
-		strncpy(m_reservation_id, reservation_id, 9);
-		m_reservation_id[9] = '\0';
-
-		m_name = name;
-		m_email = email;
-		m_party_size = party_size;
-		m_day = day;
-		m_hour = hour;
+	Reservation::Reservation(const char* reservation_id, std::string name, std::string email, int party_size, int day, int hour)
+		: m_name(name), m_email(email), m_party_size(party_size), m_day(day), m_hour(hour) 
+	{
+		strncpy(m_reservation_id, reservation_id, sizeof(m_reservation_id) - 1);
+		m_reservation_id[sizeof(m_reservation_id) - 1] = '\0';
 	}
 
 	Reservation::Reservation(const Reservation& src) {
-		init(src);
+		*this = src;
 	}
 
 	Reservation& Reservation::operator=(const Reservation& src) {
 		if (this != &src) {
-			init(src);
+			strncpy(m_reservation_id, src.m_reservation_id, sizeof(m_reservation_id) - 1);
+			m_reservation_id[sizeof(m_reservation_id) - 1] = '\0';
+			m_name = src.m_name;
+			m_email = src.m_email;
+			m_party_size = src.m_party_size;
+			m_day = src.m_day;
+			m_hour = src.m_hour;
 		}
-
 		return *this;
 	}
 
-	Reservation::~Reservation() {
-
-	}
+	Reservation::~Reservation() {}
 
 	void Reservation::init(const Reservation& src) {
-		strncpy(m_reservation_id, src.m_reservation_id, 9);
+		strncpy(m_reservation_id, src.m_reservation_id, 10);
 		m_reservation_id[9] = '\0';
 
 		m_name = src.m_name;
@@ -74,18 +79,18 @@ namespace seneca {
 
 		// Extracting the reservation ID
 		std::string id = res.substr(begin, end - begin);
-		id.erase(0, id.find_first_not_of(' ')); // Trim leading spaces
-		id.erase(id.find_last_not_of(' ') + 1); // Trim trailing spaces
-		strncpy(m_reservation_id, id.c_str(), 9);
-		m_reservation_id[9] = '\0';
+		id.erase(0, id.find_first_not_of(' '));
+		id.erase(id.find_last_not_of(' ') + 1);
+		strncpy(m_reservation_id, id.c_str(), 10);
+		m_reservation_id[10] = '\0';
 
 		begin = end + 1;
 		end = res.find(',', begin);
 
 		// Extracting the name
 		std::string name = res.substr(begin, end - begin);
-		name.erase(0, name.find_first_not_of(' ')); // Trim leading spaces
-		name.erase(name.find_last_not_of(' ') + 1); // Trim trailing spaces
+		name.erase(0, name.find_first_not_of(' '));
+		name.erase(name.find_last_not_of(' ') + 1);
 		m_name = name;
 
 		begin = end + 1;
@@ -93,8 +98,8 @@ namespace seneca {
 
 		// Extracting the email
 		std::string email = res.substr(begin, end - begin);
-		email.erase(0, email.find_first_not_of(' ')); // Trim leading spaces
-		email.erase(email.find_last_not_of(' ') + 1); // Trim trailing spaces
+		email.erase(0, email.find_first_not_of(' '));
+		email.erase(email.find_last_not_of(' ') + 1);
 		email.insert(0, "<");
 		email.append(">");
 		m_email = email;
@@ -104,8 +109,8 @@ namespace seneca {
 
 		// Extracting the number of people
 		std::string party_size_str = res.substr(begin, end - begin);
-		party_size_str.erase(0, party_size_str.find_first_not_of(' ')); // Trim leading spaces
-		party_size_str.erase(party_size_str.find_last_not_of(' ') + 1); // Trim trailing spaces
+		party_size_str.erase(0, party_size_str.find_first_not_of(' '));
+		party_size_str.erase(party_size_str.find_last_not_of(' ') + 1);
 		m_party_size = std::stoi(party_size_str);
 
 		begin = end + 1;
@@ -113,17 +118,46 @@ namespace seneca {
 
 		// Extracting the day
 		std::string day_str = res.substr(begin, end - begin);
-		day_str.erase(0, day_str.find_first_not_of(' ')); // Trim leading spaces
-		day_str.erase(day_str.find_last_not_of(' ') + 1); // Trim trailing spaces
+		day_str.erase(0, day_str.find_first_not_of(' '));
+		day_str.erase(day_str.find_last_not_of(' ') + 1);
 		m_day = std::stoi(day_str);
 
 		begin = end + 1;
 
 		// Extracting the hour
 		std::string hour_str = res.substr(begin);
-		hour_str.erase(0, hour_str.find_first_not_of(' ')); // Trim leading spaces
-		hour_str.erase(hour_str.find_last_not_of(' ') + 1); // Trim trailing spaces
+		hour_str.erase(0, hour_str.find_first_not_of(' '));
+		hour_str.erase(hour_str.find_last_not_of(' ') + 1);
 		m_hour = std::stoi(hour_str);	
+	}
+
+	Reservation::Reservation(Reservation&& other) noexcept
+		: m_reservation_id{}, m_name(std::move(other.m_name)), m_email(std::move(other.m_email)),
+		m_party_size(other.m_party_size), m_day(other.m_day), m_hour(other.m_hour) {
+		strncpy(m_reservation_id, other.m_reservation_id, sizeof(m_reservation_id) - 1);
+		m_reservation_id[sizeof(m_reservation_id) - 1] = '\0';
+		other.m_reservation_id[0] = '\0';
+		other.m_party_size = 0;
+		other.m_day = 0;
+		other.m_hour = 0;
+	}
+
+	Reservation& Reservation::operator=(Reservation&& other) noexcept {
+		if (this != &other) {
+			strncpy(m_reservation_id, other.m_reservation_id, sizeof(m_reservation_id) - 1);
+			m_reservation_id[sizeof(m_reservation_id) - 1] = '\0';
+			m_name = std::move(other.m_name);
+			m_email = std::move(other.m_email);
+			m_party_size = other.m_party_size;
+			m_day = other.m_day;
+			m_hour = other.m_hour;
+
+			other.m_reservation_id[0] = '\0';
+			other.m_party_size = 0;
+			other.m_day = 0;
+			other.m_hour = 0;
+		}
+		return *this;
 	}
 
 	std::ostream& operator<<(std::ostream& os, const Reservation& res) {

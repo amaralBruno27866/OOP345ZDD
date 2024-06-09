@@ -1,3 +1,16 @@
+/*/////////////////////////////////////////////////////////////////////////
+				  Workshop - #4 P2
+Full Name  : Bruno Amaral
+Student ID#: 143766228
+Email      : bamaral2@myseneca.ca
+Section    : ZDD
+
+Authenticity Declaration:
+I declare this submission is the result of my own work and has not been
+shared with any other student or 3rd party content provider. This submitted
+piece of work is entirely of my own creation.
+/////////////////////////////////////////////////////////////////////////*/
+
 #ifndef SENECA_RESERVATION_H
 #define SENECA_RESERVATION_H
 
@@ -7,15 +20,15 @@
 namespace seneca {
 	class Reservation {
 	private:
-		char m_reservation_id[10]; // array de caracteres para o id da reserva
-		std::string m_name; // nome na reserva
-		std::string m_email; // email para enviar a confirmação
-		int m_party_size; // número de pessoas na reserva
-		int m_day; // dia da reserva
-		int m_hour; // hora da reserva
+		char m_reservation_id[11];
+		std::string m_name;
+		std::string m_email;
+		int m_party_size;
+		int m_day;
+		int m_hour;
 	public:
 		Reservation();
-		Reservation(char reservation_id[10], std::string name, std::string email, int party_size, int day, int hour);
+		Reservation(const char* reservation_id, std::string name, std::string email, int party_size, int day, int hour);
 		Reservation(const Reservation& src);
 		Reservation& operator=(const Reservation& src);
 		~Reservation();
@@ -28,14 +41,15 @@ namespace seneca {
 		int getDay() const { return m_day; };
 		int getHour() const { return m_hour; };
 
-		// Modificador que atualiza o dia e a hora da reserva
 		void update(int day, int time);
-
-		// Construtor que extrai informações de uma string e inicializa os membros de dados
 		Reservation(const std::string& res);
-
-		// Sobrecarga do operador de inserção para imprimir os detalhes da reserva
 		friend std::ostream& operator<<(std::ostream& os, const Reservation& res);
+		
+		//Move Constructor
+		Reservation(Reservation&& other) noexcept;
+
+		//Move Assignment Operator
+		Reservation& operator=(Reservation&& other) noexcept;
 	};
 }
 
