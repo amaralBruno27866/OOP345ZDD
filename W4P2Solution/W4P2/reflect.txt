@@ -1,12 +1,23 @@
-/*/////////////////////////////////////////////////////////////////////////
-			      Workshop - #4 P2
-Full Name  : Bruno Amaral
+/*//////////////////////////////////////////////// /////////////////////////
+  Workshop - #4 P2
+Full Name: Bruno Amaral
 Student ID#: 143766228
-Email      : bamaral2@myseneca.ca
-Section    : ZDD
+Email: bamaral2@myseneca.ca
+Section : ZDD
 
 Authenticity Declaration:
 I declare this submission is the result of my own work and has not been
 shared with any other student or 3rd party content provider. This submitted
 piece of work is entirely of my own creation.
-/////////////////////////////////////////////////////////////////////////*/
+////////////////////////////////////////////////// ///////////////////////*/
+
+### Composition and Aggregation
+If I understood the concepts of Composition and Aggregation well, I was able to identify them in the Restaurant class, as this class manages several objects of the Reservation type, which shows a "has a" relationship, it owns the Reservation objects and is responsible for their life cycle, which is a strong characteristic of Composition.
+
+### Parsing a String into Tokens:
+I used the functions of the string library in order to extract the information into smaller and usable parts. First, analyzes are carried out based on symbols that can indicate the beginning and end of information, delimiting the space from which I must extract the information, generating so the tokens appropriately.
+
+### Managing a Dynamically Allocated Array of Pointers to Object:
+Memory management is not new at this point in the course, but the use of movement constructors and movement operators are new things, little explored, I was successful in implementing them but I faced several barriers until arriving at this concept, after reviewing the code several times I realized the need to use them, they are very useful in managing arrays of pointers as was the case in this workshop.
+
+The lack of information in the workshop description is highlighted, many of the concepts that must be used in the work are not clear, even analyzing the code provided, the file that will be read, the output example and the workshop description, it is very difficult to understand or identify which concepts should be used in addition to those described in the workshop, not that the answers and steps that must be followed to execute the workshop should be described in detail in the statement, but perhaps it would be more useful to address how to identify them and understand which concept we should use in addition to those that we are asked to, since the objective of the course is to prepare us for the job market, I lack the acumen to understand between the lines, focusing only on executing a code without understanding what is asked of you It makes the job much more difficult and discouraging, after all this is the least you can expect when spending thousands of dollars on a course.
