@@ -65,7 +65,9 @@ namespace seneca {
 	ConfirmationSender& ConfirmationSender::operator-=(const Reservation& res) {
 		for (size_t i = 0; i < m_size; ++i) {
 			if (m_reservations[i] == &res) {
-				m_reservations[i] = m_reservations[m_size - 1];
+				for (size_t j = i; j < m_size - 1; ++j) {
+					m_reservations[j] = m_reservations[j + 1];
+				}
 				--m_size;
 				const Reservation** temp = new const Reservation * [m_size];
 				for (size_t j = 0; j < m_size; ++j) {
@@ -78,6 +80,7 @@ namespace seneca {
 		}
 		return *this;
 	}
+
 
 	ConfirmationSender::ConfirmationSender(ConfirmationSender&& other) noexcept : m_reservations(other.m_reservations), m_size(other.m_size) {
 		other.m_reservations = nullptr;
