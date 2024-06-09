@@ -76,8 +76,8 @@ namespace seneca {
 		std::string id = res.substr(begin, end - begin);
 		id.erase(0, id.find_first_not_of(' ')); // Trim leading spaces
 		id.erase(id.find_last_not_of(' ') + 1); // Trim trailing spaces
-		strncpy(m_reservation_id, id.c_str(), 10);
-		m_reservation_id[10] = '\0';
+		strncpy(m_reservation_id, id.c_str(), 9);
+		m_reservation_id[9] = '\0';
 
 		begin = end + 1;
 		end = res.find(',', begin);
