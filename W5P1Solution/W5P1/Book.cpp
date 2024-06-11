@@ -61,14 +61,6 @@ namespace seneca {
 		country.erase(country.find_last_not_of(' ') + 1); // Trim trailing spaces
 		m_country = country;
 
-		// Extracting the year
-		start = end + 1;
-		end = strBook.find(',', start);
-		std::string year = strBook.substr(start, end - start);
-		year.erase(0, year.find_first_not_of(' ')); // Trim leading spaces
-		year.erase(year.find_last_not_of(' ') + 1); // Trim trailing spaces
-		m_year = std::stoi(year);
-
 		// Extracting the price
 		start = end + 1;
 		end = strBook.find(',', start);
@@ -76,6 +68,14 @@ namespace seneca {
 		price.erase(0, price.find_first_not_of(' ')); // Trim leading spaces
 		price.erase(price.find_last_not_of(' ') + 1); // Trim trailing spaces
 		m_price = std::stod(price);
+
+		// Extracting the year
+		start = end + 1;
+		end = strBook.find(',', start);
+		std::string year = strBook.substr(start, end - start);
+		year.erase(0, year.find_first_not_of(' ')); // Trim leading spaces
+		year.erase(year.find_last_not_of(' ') + 1); // Trim trailing spaces
+		m_year = std::stoi(year);
 
 		// Extracting the description
 		start = end + 1;
