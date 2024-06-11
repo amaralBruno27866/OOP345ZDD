@@ -6,7 +6,7 @@
 #include <string>
 
 namespace seneca {
-		class Movie {
+	class Movie {
 	private:
 		std::string m_title;
 		size_t m_year;
@@ -24,5 +24,5 @@ namespace seneca {
 
 		friend std::ostream& operator<<(std::ostream& os, const Movie& movie);
 	};
-
+}
 #endif // !SENECA_MOVIE_H
