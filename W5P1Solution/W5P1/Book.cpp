@@ -35,32 +35,55 @@ namespace seneca {
 	Book::~Book() {}
 
 	Book::Book(const std::string& strBook) {
-		std::istringstream ss(strBook);
-		std::string field;
+		size_t start = 0;
+		size_t end = strBook.find(',');
 
 		// Extracting the author
-		std::getline(ss, field, ',');
-		m_author = trim(field);
+		std::string author = strBook.substr(start, end - start);
+		author.erase(0, author.find_first_not_of(' ')); // Trim leading spaces
+		author.erase(author.find_last_not_of(' ') + 1); // Trim trailing spaces
+		m_author = author;
+
 
 		// Extracting the title
-		std::getline(ss, field, ',');
-		m_title = trim(field);
+		start = end + 1;
+		end = strBook.find(',', start);
+		std::string title = strBook.substr(start, end - start);
+		title.erase(0, title.find_first_not_of(' ')); // Trim leading spaces
+		title.erase(title.find_last_not_of(' ') + 1); // Trim trailing spaces
+		m_title = title;
 
 		// Extracting the country
-		std::getline(ss, field, ',');
-		m_country = trim(field);
-
-		// Extracting the price
-		ss >> m_price;
-		ss.ignore();
+		start = end + 1;
+		end = strBook.find(',', start);
+		std::string country = strBook.substr(start, end - start);
+		country.erase(0, country.find_first_not_of(' ')); // Trim leading spaces
+		country.erase(country.find_last_not_of(' ') + 1); // Trim trailing spaces
+		m_country = country;
 
 		// Extracting the year
-		ss >> m_year;
-		ss.ignore();
+		start = end + 1;
+		end = strBook.find(',', start);
+		std::string year = strBook.substr(start, end - start);
+		year.erase(0, year.find_first_not_of(' ')); // Trim leading spaces
+		year.erase(year.find_last_not_of(' ') + 1); // Trim trailing spaces
+		m_year = std::stoi(year);
+
+		// Extracting the price
+		start = end + 1;
+		end = strBook.find(',', start);
+		std::string price = strBook.substr(start, end - start);
+		price.erase(0, price.find_first_not_of(' ')); // Trim leading spaces
+		price.erase(price.find_last_not_of(' ') + 1); // Trim trailing spaces
+		m_price = std::stod(price);
 
 		// Extracting the description
-		std::getline(ss, field, ',');
-		m_description = trim(field);
+		start = end + 1;
+		end = strBook.find(',', start);
+		std::string description = strBook.substr(start, end - start);
+		description.erase(0, description.find_first_not_of(' ')); // Trim leading spaces
+		description.erase(description.find_last_not_of(' ') + 1); // Trim trailing spaces
+		m_description = description;
 	}
 
 	std::ostream& operator<<(std::ostream& os, const Book& book) {
