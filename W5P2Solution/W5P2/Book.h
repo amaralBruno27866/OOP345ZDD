@@ -4,6 +4,7 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
+#include "SpellChecker.h"
 
 namespace seneca {
 	class Book {
@@ -32,6 +33,11 @@ namespace seneca {
 		Book(const std::string& strBook);
 
 		friend std::ostream& operator<<(std::ostream& os, const Book& book);
+
+		template<typename T>
+		void fixSpelling(T& spellChecker) {
+			spellChecker(m_description);
+		}
 	};
 
 	template <typename T>
