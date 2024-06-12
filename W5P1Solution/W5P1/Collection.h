@@ -1,6 +1,9 @@
 #ifndef SENECA_COLLECTION_H
 #define SENECA_COLLECTION_H
 
+#include <cstddef>
+#include <stdexcept>
+
 namespace seneca {
 	template <typename T>
 	class Collection {
