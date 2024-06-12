@@ -4,6 +4,7 @@
 #include <sstream>
 #include <string>
 #include "Book.h"
+#include "Collection.h"
 
 namespace seneca {
 	Book::Book() : m_author(""), m_title(""), m_country(""), m_year(0), m_price(0), m_description("") {}
