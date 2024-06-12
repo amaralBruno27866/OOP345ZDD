@@ -150,8 +150,6 @@ int main(int argc, char** argv)
 		//       If an exception occurs print a message in the following format
 		//** EXCEPTION: ERROR_MESSAGE<endl>
 		//         where ERROR_MESSAGE is extracted from the exception object.
-		for (auto i = 0u; i < 10; ++i)
-			std::cout << theCollection[i];
 
 	std::cout << "-----------------------------------------\n\n";
 
@@ -166,14 +164,7 @@ int main(int argc, char** argv)
 			//       If an exception occurs print a message in the following format
 			//** EXCEPTION: ERROR_MESSAGE<endl>
 			//         where ERROR_MESSAGE is extracted from the exception object.
-			seneca::SpellChecker sp(argv[i]);
-			for (auto j = 0u; j < library.size(); ++j)
-				library[j].fixSpelling(sp);
-			sp.showStatistics(std::cout);
 
-			for (auto j = 0u; j < theCollection.size(); ++j)
-				theCollection[j].fixSpelling(sp);
-			sp.showStatistics(std::cout);
 	}
 	if (argc < 3) {
 		std::cout << "** Spellchecker is empty\n";

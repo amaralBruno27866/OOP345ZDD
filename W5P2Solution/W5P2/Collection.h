@@ -6,86 +6,69 @@
 #include <stdexcept>
 
 namespace seneca {
-	template <typename T>
-	class Collection {
-	private:
-		std::string name;
-		T* m_items = nullptr;
-		size_t m_size = 0;
-		void (*m_observer)(const Collection<T>&, const T&) { nullptr };
-	public:
-		Collection(const std::string& name) {
-			this->name = name;
-		}
+    template <typename T>
+    class Collection {
+    private:
+        T* items;
+        size_t size;
+        std::string name;
+        void (*observer)(const Collection<T>&, const T&) = nullptr;
 
-		// Delete copy operations
-		Collections(const Collection&) = delete;
-		Collection& operator=(const Collection&) = delete;
+    public:
+        Collection(const std::string& name = "") : items(nullptr), size(0), name(name) {}
 
-		// Destructor
-		~Collection() {
-			delete[] m_items;
-		};
+        ~Collection() { delete[] items; }
 
-		~const std::string& name() const { return m_name; };
-		size_t size() const { return m_size; };
-		void setObserver(void (*observer)(const Collection<T>&, const T&)){
-			m_observer = observer;
-		}
+        Collection(const Collection&) = delete;
+        Collection& operator=(const Collection&) = delete;
 
-		// Add item
-		Collection<T>& operator+=(const T& item) {
-			// Check if item is already in the collection
-			for (size_t i = 0; i < m_size; ++i) {
-				if (m_items[i].title() == item.title()) {
-					return *this; // Item found, do nothing
-				}
-			}
+        const std::string& getName() const { return name; }
+        size_t getSize() const { return size; }
 
-			// Item not found, add new item
-			T* temp = new T[m_size + 1];
-			for (size_t i = 0; i < m_size; ++i) {
-				temp[i] = m_items[i];
-			}
-			temp[m_size] = item;
-			delete[] m_items;
-			m_items = temp;
-			++m_size;
+        void setObserver(void (*obs)(const Collection<T>&, const T&)) {
+            observer = obs;
+        }
 
-			// Call observer if registered
-			if (m_observer) {
-				m_observer(*this, item);
-			}
+        Collection<T>& operator+=(const T& item) {
+            for (size_t i = 0; i < size; ++i) {
+                if (items[i].title() == item.title()) {
+                    return *this; // Item already exists
+                }
+            }
+            T* temp = new T[size + 1];
+            for (size_t i = 0; i < size; ++i) {
+                temp[i] = items[i];
+            }
+            temp[size++] = item;
+            delete[] items;
+            items = temp;
+            if (observer) observer(*this, item);
+            return *this;
+        }
 
-			return *this;
-		};
+        T& operator[](size_t idx) const {
+            if (idx >= size) {
+                throw std::out_of_range("Bad index [" + std::to_string(idx) + "]. Collection has [" + std::to_string(size) + "] items.");
+            }
+            return items[idx];
+        }
 
-		// Access item by index
-		T& operator[](size_t idx) const {
-			if (idx >= m_size) {
-				throw std::out_of_range("Bad index [" + std::to_string(idx) + "]. Collection has [" + std::to_string(m_size) + "] items.");
-			}
-			return m_items[idx];
-		}
+        T* operator[](const std::string& title) const {
+            for (size_t i = 0; i < size; ++i) {
+                if (items[i].title() == title) {
+                    return &items[i];
+                }
+            }
+            return nullptr;
+        }
+    };
 
-		// Access item by title
-		T* operator[](const std::string& title) const {
-			for (size_t i = 0; i < m_size; ++i) {
-				if (m_items[i].title() == title) {
-					return &m_items[i];
-				}
-			}
-			return nullptr;
-		}
-
-		// Insetion operator
-		template <typename F>
-		std::ostream& operator<<(std::ostream& os, const Collection<F>& collection) {
-			for (size_t i = 0; i < collection.size(); ++i) {
-				os << collection[i];
-			}
-			return os;
-		}
-	};
+    template <typename T>
+    std::ostream& operator<<(std::ostream& os, const Collection<T>& collection) {
+        for (size_t i = 0; i < collection.getSize(); ++i) {
+            os << collection[i];
+        }
+        return os;
+    }
 }
 #endif // !SENECA_COLLECTION_H
