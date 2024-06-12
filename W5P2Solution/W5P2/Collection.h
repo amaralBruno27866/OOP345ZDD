@@ -1,6 +1,9 @@
 #ifndef SENECA_COLLECTION_H
 #define SENECA_COLLECTION_H
 
+#include <cstddef>
+#include <stdexcept>
+
 namespace seneca {
 	template <typename T>
 	class Collection {
@@ -20,6 +23,10 @@ namespace seneca {
 			delete[] items;
 			items = temp;
 			size++;
+
+			if (callback) {
+				callback(item);
+			}
 		}
 
 		T& operator[](size_t index) {
