@@ -15,6 +15,7 @@ namespace seneca {
 		void trim(std::string& str);
 	public:
 		Movie();
+		const std::string& title() const { return m_title; };
 		Movie(const std::string& strMovie);
 
 		template <typename T>
