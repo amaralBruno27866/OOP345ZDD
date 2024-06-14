@@ -11,4 +11,6 @@ namespace seneca {
 		size_t end = str.find_last_not_of(' ');
 		str = str.substr(start, end - start + 1);
 	}
+
+
 }
