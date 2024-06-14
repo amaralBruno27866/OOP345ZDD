@@ -79,7 +79,7 @@ namespace seneca {
 
 		// Extracting the description
 		start = end + 1;
-		end = strBook.find(',', start);
+		end = strBook.find('\n', start);
 		std::string description = strBook.substr(start, end - start);
 		description.erase(0, description.find_first_not_of(' ')); // Trim leading spaces
 		description.erase(description.find_last_not_of(' ') + 1); // Trim trailing spaces
