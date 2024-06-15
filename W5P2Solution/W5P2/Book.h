@@ -35,7 +35,7 @@ namespace seneca {
 
 		template<typename T>
 		void fixSpelling(T& spellChecker) {
-			spellChecker(description);
+			spellChecker(m_description);
 		}
 	};
 }

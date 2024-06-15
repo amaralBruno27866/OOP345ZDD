@@ -98,6 +98,7 @@ namespace seneca {
 		os << std::setw(6) << std::fixed << std::setprecision(2) << book.m_price;
 		os << " | ";
 		os << book.m_description;
+		os << std::endl;
 		return os;
 	}
 }
