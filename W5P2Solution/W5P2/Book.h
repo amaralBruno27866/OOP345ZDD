@@ -33,7 +33,7 @@ namespace seneca {
 
 		template <typename T>
 		void fixSpelling(T& spellChecker) {
-			spellChecker(m_description);
+			spellChecker.operator()(m_description);
 		}
 
 		friend std::ostream& operator<<(std::ostream& os, const Book& book);

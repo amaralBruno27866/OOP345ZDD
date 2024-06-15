@@ -54,9 +54,11 @@ int main(int argc, char** argv)
 		//       - lines that start with "#" are considered comments and should be ignored
 		//       - if the file cannot be open, print a message to standard error console and
 		//                exit from application with error code "AppErrors::CannotOpenFile"
-
-
-
+		std::ifstream file(argv[1]);
+		if (!file) {
+			std::cerr << "ERROR: Cannot open file " << argv[1] << ".\n";
+			std::exit(AppErrors::CannotOpenFile);
+		}
 
 		/*
 		 ♪ Hey, I just met you,      ♪
@@ -68,9 +70,13 @@ int main(int argc, char** argv)
 		library.setObserver(bookAddedObserver);
 
 		// TODO: add the rest of the books from the file.
-
-
-
+		std::string line;
+		for (int i = 0; i < 4 && std::getline(file, line); ++i) {
+			if (line[0] != '#') { // ignore lines that start with '#'
+				seneca::Book book(line);
+				library += book;
+			}
+		}
 	}
 	else
 	{
@@ -87,8 +93,14 @@ int main(int argc, char** argv)
 	//            and save the new price in the book object
 	//       - if the book was published in UK between 1990 and 1999 (inclussive),
 	//            multiply the price with "gbpToCadRate" and save the new price in the book object
-
-
+	auto fixPrice = [=](const seneca::Book& book) {
+		if (book.country() == "US") {
+			const_cast<seneca::Book&>(book).price() *= usdToCadRate;
+		}
+		else if (book.country() == "UK" && book.year() >= 1990 && book.year() <= 1999) {
+			const_cast<seneca::Book&>(book).price() *= gbpToCadRate;
+		}
+	};
 
 	std::cout << "-----------------------------------------\n";
 	std::cout << "The library content\n";
@@ -98,8 +110,9 @@ int main(int argc, char** argv)
 
 	// TODO (from part #1): iterate over the library and update the price of each book
 	//         using the lambda defined above.
-
-
+	for (size_t i = 0; i < library.size(); ++i) {
+		fixPrice(library[i]);
+	}
 
 	std::cout << "-----------------------------------------\n";
 	std::cout << "The library content (updated prices)\n";
@@ -116,10 +129,19 @@ int main(int argc, char** argv)
 		//       - read one line at a time, and pass it to the Movie constructor
 		//       - store each movie read into the array "movies"
 		//       - lines that start with "#" are considered comments and should be ignored
+		std::ifstream file(argv[2]);
+		if (!file) {
+			std::cerr << "ERROR: Cannot open file " << argv[2] << ".\n";
+			std::exit(AppErrors::CannotOpenFile);
+		}
 
-
-
-
+		std::string line;
+		for (int i = 0; i < 5 && std::getline(file, line);) {
+			if (line[0] != '#') { // ignore lines that start with '#'
+				movies[i] = seneca::Movie(line);
+				++i;
+			}
+		}
 	}
 
 	std::cout << "-----------------------------------------\n";
@@ -150,6 +172,14 @@ int main(int argc, char** argv)
 		//       If an exception occurs print a message in the following format
 		//** EXCEPTION: ERROR_MESSAGE<endl>
 		//         where ERROR_MESSAGE is extracted from the exception object.
+		try {
+			for (auto i = 0u; i < 10; ++i)
+				std::cout << theCollection[i];
+		}
+		catch (const std::exception& e) {
+			std::cout << "** EXCEPTION: " << e.what() << std::endl;
+		}
+
 		for (auto i = 0u; i < 10; ++i)
 			std::cout << theCollection[i];
 
@@ -166,14 +196,28 @@ int main(int argc, char** argv)
 			//       If an exception occurs print a message in the following format
 			//** EXCEPTION: ERROR_MESSAGE<endl>
 			//         where ERROR_MESSAGE is extracted from the exception object.
+		try {
 			seneca::SpellChecker sp(argv[i]);
+			for (auto j = 0u; j < library.size(); ++j)
+				const_cast<seneca::Book&>(library[j]).fixSpelling(sp);
+			sp.showStatistics(std::cout);
+
+			for (auto j = 0u; j < theCollection.size(); ++j)
+				const_cast<seneca::Movie&>(theCollection[j]).fixSpelling(sp);
+			sp.showStatistics(std::cout);
+		}
+		catch (const std::exception& e) {
+			std::cout << "** EXCEPTION: " << e.what() << std::endl;
+		}
+
+			/*seneca::SpellChecker sp(argv[i]);
 			for (auto j = 0u; j < library.size(); ++j)
 				library[j].fixSpelling(sp);
 			sp.showStatistics(std::cout);
 
 			for (auto j = 0u; j < theCollection.size(); ++j)
 				theCollection[j].fixSpelling(sp);
-			sp.showStatistics(std::cout);
+			sp.showStatistics(std::cout);*/
 	}
 	if (argc < 3) {
 		std::cout << "** Spellchecker is empty\n";

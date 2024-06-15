@@ -20,8 +20,8 @@ namespace seneca {
 
 		template <typename T>
 		void fixSpelling(T& spellChecker) {
-			spellChecker(m_title);
-			spellChecker(m_description);
+			spellChecker.operator()(m_title);
+			spellChecker.operator()(m_description);
 		}
 
 		friend std::ostream& operator<<(std::ostream& os, const Movie& movie);
@@ -30,5 +30,3 @@ namespace seneca {
 }
 
 #endif // !SENECA_MOVIE_H
-
-

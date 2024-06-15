@@ -17,16 +17,16 @@ namespace seneca {
 	public:
 		Collection(const std::string& name):m_name(name), m_observer(nullptr) {}
 		const std::string& name() const { return m_name; };
-		size_t size() const { return items.size(); };
+		size_t size() const { return m_items.size(); };
 
 		void setObserver(void(*obeserver)(const Collection<T>&, const T&)) {
 			m_observer = obeserver;
 		}
 
 		Collection<T>& operator+=(const T& item) {
-			auto isTitleMatch = & {return i.title() == item.title(); };
+			auto isTitleMatch = [&](const T& i) { return i.title() == item.title(); };
 
-			auto it = std::find_if(m_items.begin(), m_items.end(). isTitleMatch);
+			auto it = std::find_if(m_items.begin(), m_items.end(), isTitleMatch);
 
 			bool itemExists = it != m_items.end();
 
@@ -40,7 +40,7 @@ namespace seneca {
 			return *this;
 		}
 
-		T& operator[](size_t idx) const {
+		const T& operator[](size_t idx) const {
 			if (idx >= m_items.size()) {
 				std::string errorMessage = "Bad index [";
 				errorMessage += std::to_string(idx);
