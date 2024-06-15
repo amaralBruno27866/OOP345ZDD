@@ -1,0 +1,56 @@
+Command Line:
+--------------------------
+  1: C:\Users\balen\OneDrive\Documentos\Seneca\OOP-345\OOP345ZDD\W5P2Solution\x64\Debug\W5P2.exe
+  2: books.txt
+  3: movies.txt
+  4: missing_file.txt
+  5: words.txt
+--------------------------
+
+Book "Don Quixote" added!
+Book "A Tale of Two Cities" added!
+Book "A Song of Ice and Fire" added!
+Book "The Lord of the Rings" added!
+-----------------------------------------
+The library content
+-----------------------------------------
+ Miguel de Cervantes |            Don Quixote | Spain | 1612 |   9.99 | The story follows a Hidalgo, Alonso Quixano, who proves that chivalry will in fact never die.
+     Charles Dickens |   A Tale of Two Cities |    UK | 1859 |  12.32 | A historical novel, set in London and Paris at teh begiming and during the French Revolution.
+  George R.R. Martin | A Song of Ice and Fire |    US | 1997 |  99.90 | Nine noble famillies begim fighting for control over teh mythical lands of Westeros.
+      J.R.R. Tolkien |  The Lord of the Rings |    UK | 1993 |  21.11 | Sauron has gathered to him all teh Rings of Power, and he intends to use them to rule Middle-earth.
+-----------------------------------------
+
+-----------------------------------------
+The library content (updated prices)
+-----------------------------------------
+ Miguel de Cervantes |            Don Quixote | Spain | 1612 |   9.99 | The story follows a Hidalgo, Alonso Quixano, who proves that chivalry will in fact never die.
+     Charles Dickens |   A Tale of Two Cities |    UK | 1859 |  12.32 | A historical novel, set in London and Paris at teh begiming and during the French Revolution.
+  George R.R. Martin | A Song of Ice and Fire |    US | 1997 | 129.87 | Nine noble famillies begim fighting for control over teh mythical lands of Westeros.
+      J.R.R. Tolkien |  The Lord of the Rings |    UK | 1993 |  31.66 | Sauron has gathered to him all teh Rings of Power, and he intends to use them to rule Middle-earth.
+-----------------------------------------
+
+-----------------------------------------
+Testing addition and callback function
+-----------------------------------------
+Movie "Star Wars: The Rise of Skywalker" added to collection "Action Movies" (4 items).
+Movie "Terminator: Dork Fate" added to collection "Action Movies" (5 items).
+-----------------------------------------
+
+-----------------------------------------
+Testing exceptions and operator[]
+-----------------------------------------
+                         Game of Thrones | 2011 | Nine noble famillies begim fighting for control over teh mythical lands of Westeros.
+                       Avengers: Endgame | 2019 | With the help of remaining allies, teh Avengers assemble once more in order to reverse Thanos' actions.
+                            Dork Phoenix | 2019 | Jean Grey begims to develop incredible Dork powers that corrupt and turn her into a Dork Phoenix.
+        Star Wars: The Rise of Skywalker | 2019 | The surviving Resistance faces the First Order once more in the final chapter of the Skywalker saga.
+                   Terminator: Dork Fate | 2019 | Sarah Connor and a hibrid cyborg human must protect a young girl from a newly modiffied liquid Terminator.
+** EXCEPTION: Bad index [5]. Collection has [5] items.
+** EXCEPTION: Bad index [6]. Collection has [5] items.
+** EXCEPTION: Bad index [7]. Collection has [5] items.
+** EXCEPTION: Bad index [8]. Collection has [5] items.
+** EXCEPTION: Bad index [9]. Collection has [5] items.
+-----------------------------------------
+
+-----------------------------------------
+Testing the functor
+-----------------------------------------
