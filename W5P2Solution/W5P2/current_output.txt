@@ -54,3 +54,37 @@ Testing exceptions and operator[]
 -----------------------------------------
 Testing the functor
 -----------------------------------------
+** EXCEPTION: Bad file name!
+            teh: 3 replacements
+      modiffied: 0 replacements
+          begim: 2 replacements
+      famillies: 1 replacements
+           Dork: 0 replacements
+         hibrid: 0 replacements
+            teh: 5 replacements
+      modiffied: 1 replacements
+          begim: 4 replacements
+      famillies: 2 replacements
+           Dork: 4 replacements
+         hibrid: 1 replacements
+
+=========================================
+Wrapping up this workshop
+--------------- Movies ------------------
+                         Game of Thrones | 2011 | Nine noble families begin fighting for control over the mythical lands of Westeros.
+                       Avengers: Endgame | 2019 | With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos' actions.
+                            Dark Phoenix | 2019 | Jean Grey begins to develop incredible Dark powers that corrupt and turn her into a Dark Phoenix.
+        Star Wars: The Rise of Skywalker | 2019 | The surviving Resistance faces the First Order once more in the final chapter of the Skywalker saga.
+                   Terminator: Dark Fate | 2019 | Sarah Connor and a hybrid cyborg human must protect a young girl from a newly modified liquid Terminator.
+--------------- Books -------------------
+ Miguel de Cervantes |            Don Quixote | Spain | 1612 |   9.99 | The story follows a Hidalgo, Alonso Quixano, who proves that chivalry will in fact never die.
+     Charles Dickens |   A Tale of Two Cities |    UK | 1859 |  12.32 | A historical novel, set in London and Paris at the begining and during the French Revolution.
+  George R.R. Martin | A Song of Ice and Fire |    US | 1997 | 129.87 | Nine noble families begin fighting for control over the mythical lands of Westeros.
+      J.R.R. Tolkien |  The Lord of the Rings |    UK | 1993 |  31.66 | Sauron has gathered to him all the Rings of Power, and he intends to use them to rule Middle-earth.
+-----------------------------------------
+Testing operator[] (the other overload)
+-----------------------------------------
+** Movie Terminator 2 not in collection.
+In this collection:
+                            Dark Phoenix | 2019 | Jean Grey begins to develop incredible Dark powers that corrupt and turn her into a Dark Phoenix.
+-----------------------------------------
