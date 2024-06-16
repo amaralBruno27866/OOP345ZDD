@@ -1,0 +1,14 @@
+/*/////////////////////////////////////////////////////////////////////////
+				  Workshop - #5 P2
+Full Name  : Bruno Amaral
+Student ID#: 143766228
+Email      : bamaral2@myseneca.ca
+Section    : ZDD
+
+Authenticity Declaration:
+I declare this submission is the result of my own work and has not been
+shared with any other student or 3rd party content provider. This submitted
+piece of work is entirely of my own creation.
+/////////////////////////////////////////////////////////////////////////*/
+
+Lambda functions are very useful for times when we do not need to maintain the state of the function, its simplicity and the fact that we can keep it anonymous makes it very versatile for simpler codes. Another point addressed was exceptions, applied in constructor of the SpellChecker class, an exception is thrown when the file cannot be read, this allows us to channel the error handling flow within the code, making it cleaner and more efficient, another point addressed is the duplication of logic, we see this among the Movie and Book classes, both have very similar code, both in the header file and in the implementation file, this could be avoided by moving this logic to a separate function to deal with this, perhaps creating an interface would be more appropriate , in relation to the standard Movie and Book constructors that are basic for building the solution, they could be replaced by constructors with arguments, which would make the code safer as it would avoid the creation of objects in an invalid state.
