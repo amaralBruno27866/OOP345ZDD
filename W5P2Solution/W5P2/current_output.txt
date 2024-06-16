@@ -1,6 +1,6 @@
 Command Line:
 --------------------------
-  1: C:\Users\balen\OneDrive\Documentos\Seneca\OOP-345\OOP345ZDD\W5P2Solution\x64\Debug\W5P2.exe
+  1: ws
   2: books.txt
   3: movies.txt
   4: missing_file.txt

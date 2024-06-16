@@ -74,6 +74,18 @@ int main(int argc, char** argv)
 		seneca::Book tempBook;
 		std::string line;
 		int addedBooks = 0;
+
+		//while (addedBooks < 4 && std::getline(file, line)) {
+		//	if (line[0] != '#') { // Check if the line is not a comment
+		//		tempBook = seneca::Book(line); // Create a Book object using the line
+		//		// Check if the book title is one of the desired titles
+		//		if (tempBook.title() == "Harry Potter" || tempBook.title() == "The Da Vinci Code" || tempBook.title() == "The Catcher in teh Rye") {
+		//			library += tempBook; // Add the book to the collection
+		//			addedBooks++;
+		//		}
+		//	}
+		//}
+
 		while (addedBooks < 4 && std::getline(file, line)) {
 			if (line[0] != '#') { // Check if the line is not a comment
 				tempBook = seneca::Book(line); // Create a Book object using the line
@@ -104,7 +116,7 @@ int main(int argc, char** argv)
 		else if (book.country() == "UK" && book.year() >= 1990 && book.year() <= 1999) {
 			book.price() *= gbpToCadRate;
 		}
-	};
+		};
 
 	std::cout << "-----------------------------------------\n";
 	std::cout << "The library content\n";
@@ -169,18 +181,18 @@ int main(int argc, char** argv)
 		std::cout << "** No movies in the Collection\n";
 	}
 	std::cout << "-----------------------------------------\n\n";
-	
+
 	std::cout << "-----------------------------------------\n";
 	std::cout << "Testing exceptions and operator[]\n";
 	std::cout << "-----------------------------------------\n";
 
 
-		// TODO: The following loop can generate generate an exception
-		//         write code to handle the exception
-		//       If an exception occurs print a message in the following format
-		//** EXCEPTION: ERROR_MESSAGE<endl>
-		//         where ERROR_MESSAGE is extracted from the exception object.
-	for (auto i = 0u; i < 10; ++i) {
+	// TODO: The following loop can generate generate an exception
+	//         write code to handle the exception
+	//       If an exception occurs print a message in the following format
+	//** EXCEPTION: ERROR_MESSAGE<endl>
+	//         where ERROR_MESSAGE is extracted from the exception object.
+	for (auto i = 0u; i < theCollection.size()+1; ++i) {
 		try {
 			std::cout << theCollection[i];
 		}
@@ -197,11 +209,11 @@ int main(int argc, char** argv)
 	std::cout << "-----------------------------------------\n";
 	for (auto i = 3; i < argc; ++i)
 	{
-			// TODO: The following statement can generate generate an exception
-			//         write code to handle the exception
-			//       If an exception occurs print a message in the following format
-			//** EXCEPTION: ERROR_MESSAGE<endl>
-			//         where ERROR_MESSAGE is extracted from the exception object.
+		// TODO: The following statement can generate generate an exception
+		//         write code to handle the exception
+		//       If an exception occurs print a message in the following format
+		//** EXCEPTION: ERROR_MESSAGE<endl>
+		//         where ERROR_MESSAGE is extracted from the exception object.
 		try {
 			seneca::SpellChecker sp(argv[i]);
 			for (auto j = 0u; j < library.size(); ++j)
