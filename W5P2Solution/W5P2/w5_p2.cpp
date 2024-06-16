@@ -75,18 +75,7 @@ int main(int argc, char** argv)
 		std::string line;
 		int addedBooks = 0;
 
-		//while (addedBooks < 4 && std::getline(file, line)) {
-		//	if (line[0] != '#') { // Check if the line is not a comment
-		//		tempBook = seneca::Book(line); // Create a Book object using the line
-		//		// Check if the book title is one of the desired titles
-		//		if (tempBook.title() == "Harry Potter" || tempBook.title() == "The Da Vinci Code" || tempBook.title() == "The Catcher in teh Rye") {
-		//			library += tempBook; // Add the book to the collection
-		//			addedBooks++;
-		//		}
-		//	}
-		//}
-
-		while (addedBooks < 4 && std::getline(file, line)) {
+		while (addedBooks < 7 && std::getline(file, line)) {
 			if (line[0] != '#') { // Check if the line is not a comment
 				tempBook = seneca::Book(line); // Create a Book object using the line
 				library += tempBook; // Add the book to the collection
@@ -116,7 +105,7 @@ int main(int argc, char** argv)
 		else if (book.country() == "UK" && book.year() >= 1990 && book.year() <= 1999) {
 			book.price() *= gbpToCadRate;
 		}
-		};
+	};
 
 	std::cout << "-----------------------------------------\n";
 	std::cout << "The library content\n";

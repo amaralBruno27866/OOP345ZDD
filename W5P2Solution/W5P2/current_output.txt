@@ -1,6 +1,6 @@
 Command Line:
 --------------------------
-  1: ws
+  1: C:\Users\balen\OneDrive\Documentos\Seneca\OOP-345\OOP345ZDD\W5P2Solution\x64\Debug\W5P2.exe
   2: books.txt
   3: movies.txt
   4: missing_file.txt
@@ -11,6 +11,9 @@ Book "Don Quixote" added!
 Book "A Tale of Two Cities" added!
 Book "A Song of Ice and Fire" added!
 Book "The Lord of the Rings" added!
+Book "Harry Potter" added!
+Book "The Da Vinci Code" added!
+Book "The Catcher in teh Rye" added!
 -----------------------------------------
 The library content
 -----------------------------------------
@@ -18,6 +21,9 @@ The library content
      Charles Dickens |   A Tale of Two Cities |    UK | 1859 |  12.32 | A historical novel, set in London and Paris at teh begiming and during the French Revolution.
   George R.R. Martin | A Song of Ice and Fire |    US | 1997 |  99.90 | Nine noble famillies begim fighting for control over teh mythical lands of Westeros.
       J.R.R. Tolkien |  The Lord of the Rings |    UK | 1993 |  21.11 | Sauron has gathered to him all teh Rings of Power, and he intends to use them to rule Middle-earth.
+        J.K. Rowling |           Harry Potter |    UK | 1997 |  45.99 | Harry realizes his life is far from ordinary.
+           Dan Brown |      The Da Vinci Code |    US | 2003 |   7.88 | While in Paris, Harvard symbologist Robert Langdon is awakened by a phone call in teh night.
+       J.D. Salinger | The Catcher in teh Rye |    US | 1951 |  12.21 | The story of a teen named Holden Caulfield and his struggle to find his voice in an adult world.
 -----------------------------------------
 
 -----------------------------------------
@@ -27,6 +33,9 @@ The library content (updated prices)
      Charles Dickens |   A Tale of Two Cities |    UK | 1859 |  12.32 | A historical novel, set in London and Paris at teh begiming and during the French Revolution.
   George R.R. Martin | A Song of Ice and Fire |    US | 1997 | 129.87 | Nine noble famillies begim fighting for control over teh mythical lands of Westeros.
       J.R.R. Tolkien |  The Lord of the Rings |    UK | 1993 |  31.66 | Sauron has gathered to him all teh Rings of Power, and he intends to use them to rule Middle-earth.
+        J.K. Rowling |           Harry Potter |    UK | 1997 |  68.98 | Harry realizes his life is far from ordinary.
+           Dan Brown |      The Da Vinci Code |    US | 2003 |  10.24 | While in Paris, Harvard symbologist Robert Langdon is awakened by a phone call in teh night.
+       J.D. Salinger | The Catcher in teh Rye |    US | 1951 |  15.87 | The story of a teen named Holden Caulfield and his struggle to find his voice in an adult world.
 -----------------------------------------
 
 -----------------------------------------
@@ -45,23 +54,21 @@ Testing exceptions and operator[]
         Star Wars: The Rise of Skywalker | 2019 | The surviving Resistance faces the First Order once more in the final chapter of the Skywalker saga.
                    Terminator: Dork Fate | 2019 | Sarah Connor and a hibrid cyborg human must protect a young girl from a newly modiffied liquid Terminator.
 ** EXCEPTION: Bad index [5]. Collection has [5] items.
-** EXCEPTION: Bad index [6]. Collection has [5] items.
-** EXCEPTION: Bad index [7]. Collection has [5] items.
-** EXCEPTION: Bad index [8]. Collection has [5] items.
-** EXCEPTION: Bad index [9]. Collection has [5] items.
 -----------------------------------------
 
 -----------------------------------------
 Testing the functor
 -----------------------------------------
 ** EXCEPTION: Bad file name!
-            teh: 3 replacements
+Spellchecker Statistics
+            teh: 4 replacements
       modiffied: 0 replacements
           begim: 2 replacements
       famillies: 1 replacements
            Dork: 0 replacements
          hibrid: 0 replacements
-            teh: 5 replacements
+Spellchecker Statistics
+            teh: 6 replacements
       modiffied: 1 replacements
           begim: 4 replacements
       famillies: 2 replacements
@@ -81,6 +88,9 @@ Wrapping up this workshop
      Charles Dickens |   A Tale of Two Cities |    UK | 1859 |  12.32 | A historical novel, set in London and Paris at the begining and during the French Revolution.
   George R.R. Martin | A Song of Ice and Fire |    US | 1997 | 129.87 | Nine noble families begin fighting for control over the mythical lands of Westeros.
       J.R.R. Tolkien |  The Lord of the Rings |    UK | 1993 |  31.66 | Sauron has gathered to him all the Rings of Power, and he intends to use them to rule Middle-earth.
+        J.K. Rowling |           Harry Potter |    UK | 1997 |  68.98 | Harry realizes his life is far from ordinary.
+           Dan Brown |      The Da Vinci Code |    US | 2003 |  10.24 | While in Paris, Harvard symbologist Robert Langdon is awakened by a phone call in the night.
+       J.D. Salinger | The Catcher in teh Rye |    US | 1951 |  15.87 | The story of a teen named Holden Caulfield and his struggle to find his voice in an adult world.
 -----------------------------------------
 Testing operator[] (the other overload)
 -----------------------------------------
