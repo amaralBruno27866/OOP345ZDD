@@ -49,11 +49,11 @@ int main(int argc, char** argv)
 	seneca::Collection<seneca::Book> library("Bestsellers");
 	if (argc == 5) {
 		// TODO: load the first 4 books from the file "argv[1]".
-		//       - read one line at a time, and pass it to the Book constructor
-		//       - store each book read into the collection "library" (use the += operator)
-		//       - lines that start with "#" are considered comments and should be ignored
-		//       - if the file cannot be open, print a message to standard error console and
-		//                exit from application with error code "AppErrors::CannotOpenFile"
+//       - read one line at a time, and pass it to the Book constructor
+//       - store each book read into the collection "library" (use the += operator)
+//       - lines that start with "#" are considered comments and should be ignored
+//       - if the file cannot be open, print a message to standard error console and
+//                exit from application with error code "AppErrors::CannotOpenFile"
 
 		std::ifstream file(argv[1]); // Open the file for reading
 		if (!file) {
@@ -61,24 +61,26 @@ int main(int argc, char** argv)
 			std::exit(AppErrors::CannotOpenFile);
 		}
 
-		/*
-		 ♪ Hey, I just met you,      ♪
-		 ♪ And this is crazy,        ♪
-		 ♪ But here's my number.     ♪    (register the observer)
-		 ♪ So, if something happens, ♪    (event)
-		 ♪ Call me, maybe?           ♪    (callback)
-		 */
 		library.setObserver(bookAddedObserver);
 
-		// TODO: add the rest of the books from the file.
 		seneca::Book tempBook;
 		std::string line;
 		int addedBooks = 0;
+		const int totalBooksToAdd = 7;
+		const int booksToAnnounce = 3;
 
-		while (addedBooks < 7 && std::getline(file, line)) {
+		while (addedBooks < totalBooksToAdd && std::getline(file, line)) {
 			if (line[0] != '#') { // Check if the line is not a comment
 				tempBook = seneca::Book(line); // Create a Book object using the line
-				library += tempBook; // Add the book to the collection
+				if (addedBooks >= totalBooksToAdd - booksToAnnounce) {
+					library += tempBook; // Add the book to the collection and announce
+				}
+				else {
+					// Add the book without announcing
+					library.setObserver(nullptr); // Temporarily disable observer
+					library += tempBook;
+					library.setObserver(bookAddedObserver); // Re-enable observer
+				}
 				addedBooks++;
 			}
 		}
@@ -98,6 +100,7 @@ int main(int argc, char** argv)
 	//            and save the new price in the book object
 	//       - if the book was published in UK between 1990 and 1999 (inclussive),
 	//            multiply the price with "gbpToCadRate" and save the new price in the book object
+
 	auto fixPrice = [&usdToCadRate, &gbpToCadRate](seneca::Book& book) {
 		if (book.country() == "US") {
 			book.price() *= usdToCadRate;
