@@ -18,3 +18,4 @@
 
 # MILESTONE PROJECT
 - Milestone #1 - started - 100%
+- MIlestone #2 - started - 97%
