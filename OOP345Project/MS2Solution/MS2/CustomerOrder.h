@@ -1,3 +1,10 @@
+// Name: Bruno Amaral
+// Seneca Student ID: 143766228
+// Seneca email: bamaral2@myseneca.ca
+// Date of completion:
+//
+// I confirm that I am the only author of this file
+//   and the content was created entirely by me.
 #ifndef SENECA_CUSTOMERORDER_H
 #define SENECA_CUSTOMERORDER_H
 
@@ -32,11 +39,17 @@ namespace seneca {
 		// Initializes a CustomerOrder object with the record received.
 		CustomerOrder(const std::string& str);
 
+		// Prevents copying and copying assignment of CustomerOrder objects.
+		CustomerOrder(const CustomerOrder&);
+
+		// Prevents copying and copying assignment of CustomerOrder objects.
+		CustomerOrder& operator=(const CustomerOrder&);
+
 		// Move copy constructor
-		CustomerOrder(const CustomerOrder&& str) noexcept;
+		CustomerOrder(CustomerOrder&& oth) noexcept;
 
 		// Move assignment operator
-		CustomerOrder& operator=(CustomerOrder&& str) noexcept;
+		CustomerOrder& operator=(CustomerOrder&& oth) noexcept;
 
 		// Destructor
 		~CustomerOrder();
