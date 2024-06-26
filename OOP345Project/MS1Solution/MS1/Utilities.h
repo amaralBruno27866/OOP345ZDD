@@ -1,3 +1,10 @@
+// Name: Bruno Amaral
+// Seneca Student ID: 143766228
+// Seneca email: bamaral2@myseneca.ca
+// Date of completion:
+//
+// I confirm that I am the only author of this file
+//   and the content was created entirely by me.
 #ifndef SENECA_UTILITIES_H
 #define SENECA_UTILITIES_H
 
