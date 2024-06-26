@@ -10,15 +10,17 @@ namespace seneca {
 
 	Station::Station(const std::string& record) {
 		Utilities u;
-		size_t nexr_pos = 0;
+		size_t next_pos = 0;
 		bool more = true;
 
-		m_itemName = u.extractToken(record, nexr_pos, more);
-		m_serialNumber = std::stoi(u.extractToken(record, nexr_pos, more));
-		m_quantityInStock = std::stoi(u.extractToken(record, nexr_pos, more));
+		std::string token;
+
+		m_itemName = u.extractToken(record, next_pos, more);
+		m_serialNumber = std::stoi(u.extractToken(record, next_pos, more));
+		m_quantityInStock = std::stoi(u.extractToken(record, next_pos, more));
 
 		if (more) {
-			std::string desc = u.extractToken(record, nexr_pos, more);
+			std::string desc = u.extractToken(record, next_pos, more);
 			m_stationDesc = desc;
 			m_widthField = std::max(m_widthField, u.getFieldWidth());
 		}
@@ -47,12 +49,12 @@ namespace seneca {
 	void Station::display(std::ostream& os, bool full) const {
 		os << std::setw(3) << std::setfill('0') << m_id;
 		os << " | ";
-		os << std::setw(m_widthField) << std::setfill(' ') << m_itemName;
+		os << std::left << std::setw(14) << std::setfill(' ') << m_itemName;
 		os << " | ";
 		os << std::setw(6) << std::setfill('0') << m_serialNumber;
 		os << " | ";
 		if (full) {
-			os << std::setw(4) << std::setfill(' ') << m_quantityInStock;
+			os << std::right << std::setw(4) << std::setfill(' ') << m_quantityInStock;
 			os << " | ";
 			os << m_stationDesc;
 		}
