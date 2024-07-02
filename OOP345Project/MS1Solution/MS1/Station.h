@@ -5,8 +5,8 @@
 //
 // I confirm that I am the only author of this file
 //   and the content was created entirely by me.
-#ifndef SENECA_STATIONS_H
-#define SENECA_STATIONS_H
+#ifndef SENECA_STATION_H
+#define SENECA_STATION_H
 
 #include <iostream>
 #include <string>
@@ -43,4 +43,4 @@ namespace seneca {
 	};
 }
 
-#endif // !SENECA_STATIONS_H
+#endif // !SENECA_STATION_H

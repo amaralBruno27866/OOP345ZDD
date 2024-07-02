@@ -16,8 +16,6 @@
 #include "CustomerOrder.h"
 
 namespace seneca {
-	size_t CustomerOrder::m_widthField = 0;
-
 	CustomerOrder::CustomerOrder() : m_name(""), m_product(""), m_cntItem(0), m_lstItem(nullptr) {}
 
 	CustomerOrder::CustomerOrder(const std::string& str) {
@@ -154,7 +152,9 @@ namespace seneca {
 			os << "[" << std::setw(6) << std::setfill('0') << m_lstItem[i]->m_serialNumber << "] ";
 			os << std::left << std::setw(m_widthField) << std::setfill(' ') << m_lstItem[i]->m_itemName;
 			os << " - ";
-			os << (m_lstItem[i]->m_isFilled ? "TO BE FILLED" : "MISSING") << std::endl;
+			os << (m_lstItem[i]->m_isFilled ? "FILLED" : "TO BE FILLED") << std::endl;
 		}
 	}
+
+	size_t CustomerOrder::m_widthField = 0;
 }

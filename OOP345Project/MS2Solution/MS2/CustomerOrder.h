@@ -16,7 +16,8 @@
 
 namespace seneca {
 	// The Station class represents a station in a factory.
-	struct Item {
+	class Item {
+	public:
 		std::string m_itemName;
 		size_t m_serialNumber{ 0 };
 		bool m_isFilled{ false };
@@ -27,6 +28,7 @@ namespace seneca {
 
 	// The CustomerOrder class manages a customer order.
 	class CustomerOrder {
+	public:
 		std::string m_name; // The name of the customer
 		std::string m_product; // The name of the product
 		size_t m_cntItem; // The number of items in the customer's order
