@@ -27,6 +27,10 @@ namespace seneca {
 		Directory& operator=(const Directory&) = delete;
 		Directory(Directory&&) = delete;
 		Directory& operator=(Directory&&) = delete;
+
+		// Update Directory Module
+		void remove(const std::string& name, const std::vector<OpFlags>& flags);
+		void display(std::ostream& os, const std::vector<OpFlags>& flags) const;
 	};
 }
 #endif // !SENECA_DIRECTORY_H

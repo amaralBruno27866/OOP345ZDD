@@ -1,6 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <algorithm>
 #include <stdexcept>
+#include <iomanip>
 #include "Directory.h"
 
 namespace seneca {
@@ -73,5 +74,45 @@ namespace seneca {
 		}
 
 		return foundResource;
+	}
+
+	void Directory::remove(const std::string& name, const std::vector<OpFlags>& flags) {
+		auto it = std::find_if(m_contents.begin(), m_contents.end(), [name](const std::unique_ptr<Resource>& rsc) {
+			return rsc->name() == name;
+		});
+
+		if(it == m_contents.end()) {
+			throw std::runtime_error(name + "does not exist in" + this->name());
+		}
+
+		if((*it)->type() == NodeType::DIR && std::find(flags.begin(), flags.end(), OpFlags::RECURSIVE) != flags.end()) {
+			throw std::invalid_argument(name + " is a directory. Pass the recursive flag to delete directories.");
+		}
+
+		m_contents.erase(it);
+	}
+
+	void Directory::display(std::ostream& os, const std::vector<OpFlags>& flags) const {
+		os << "Total size: " << size() << " bytes\n";
+		for (const auto& resource : m_contents) {
+			if (resource->type() == NodeType::DIR) {
+				os << "D | " << std::left << std::setw(15) << resource->name() << " | ";
+				if (std::find(flags.begin(), flags.end(), FormatFlags::LONG) != flags.end()) {
+					os << std::right << std::setw(2) << dynamic_cast<Directory*>(resource.get())->count() << " | " << std::setw(10) << resource->size() << " bytes |\n";
+				}
+				else {
+					os << "\n";
+				}
+			}
+			else if (resource->type() == NodeType::FILE) {
+				os << "F | " << std::left << std::setw(15) << resource->name() << " | ";
+				if (std::find(flags.begin(), flags.end(), FormatFlags::LONG) != flags.end()) {
+					os << "   | " << std::right << std::setw(10) << resource->size() << " bytes |\n";
+				}
+				else {
+					os << "\n";
+				}
+			}
+		}
 	}
 }
