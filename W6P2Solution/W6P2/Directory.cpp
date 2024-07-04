@@ -77,42 +77,60 @@ namespace seneca {
 	}
 
 	void Directory::remove(const std::string& name, const std::vector<OpFlags>& flags) {
-		auto it = std::find_if(m_contents.begin(), m_contents.end(), [name](const std::unique_ptr<Resource>& rsc) {
+		auto it = std::find_if(m_contents.begin(), m_contents.end(), [&name](const std::unique_ptr<Resource>& rsc) {
 			return rsc->name() == name;
-		});
+			});
 
-		if(it == m_contents.end()) {
-			throw std::runtime_error(name + "does not exist in" + this->name());
+		if (it == m_contents.end()) {
+			throw std::runtime_error(name + " does not exist in " + this->name());
 		}
 
-		if((*it)->type() == NodeType::DIR && std::find(flags.begin(), flags.end(), OpFlags::RECURSIVE) != flags.end()) {
-			throw std::invalid_argument(name + " is a directory. Pass the recursive flag to delete directories.");
+		if ((*it)->type() == NodeType::DIR) {
+			if (std::find(flags.begin(), flags.end(), OpFlags::RECURSIVE) == flags.end()) {
+				throw std::invalid_argument(name + " is a directory. Pass the recursive flag to delete directories.");
+			}
 		}
 
+		// If it's a file or a directory with RECURSIVE flag, remove it
 		m_contents.erase(it);
 	}
 
-	void Directory::display(std::ostream& os, const std::vector<OpFlags>& flags) const {
+	void Directory::display(std::ostream& os, const std::vector<FormatFlags>& flags) const {
+		// Insert the total size of the directory
 		os << "Total size: " << size() << " bytes\n";
+
+		// Iterate through each resource in the directory
 		for (const auto& resource : m_contents) {
+			// Check the type of the resource and print the appropriate prefix
 			if (resource->type() == NodeType::DIR) {
-				os << "D | " << std::left << std::setw(15) << resource->name() << " | ";
-				if (std::find(flags.begin(), flags.end(), FormatFlags::LONG) != flags.end()) {
-					os << std::right << std::setw(2) << dynamic_cast<Directory*>(resource.get())->count() << " | " << std::setw(10) << resource->size() << " bytes |\n";
-				}
-				else {
-					os << "\n";
-				}
+				os << "D | ";
 			}
 			else if (resource->type() == NodeType::FILE) {
-				os << "F | " << std::left << std::setw(15) << resource->name() << " | ";
-				if (std::find(flags.begin(), flags.end(), FormatFlags::LONG) != flags.end()) {
-					os << "   | " << std::right << std::setw(10) << resource->size() << " bytes |\n";
+				os << "F | ";
+			}
+
+			// Print the name of the resource, left-aligned within a field width of 15 characters
+			os << std::left << std::setw(15) << resource->name() << " | ";
+
+			// Check if the LONG flag is present
+			auto it = std::find(flags.begin(), flags.end(), FormatFlags::LONG);
+			if (it != flags.end()) {
+				// If the resource is a directory and the LONG flag is present
+				if (resource->type() == NodeType::DIR) {
+					// Dynamic cast to Directory* to access directory-specific methods
+					auto dir = dynamic_cast<Directory*>(resource.get());
+					// Print the count of resources in the directory, right-aligned within a width of 2
+					os << std::right << std::setw(2) << dir->count() << " | ";
 				}
 				else {
-					os << "\n";
+					// If it's a file, just align the next field
+					os << "   | ";
 				}
+				// For both files and directories, print the size, right-aligned within a width of 10
+				os << std::right << std::setw(10) << resource->size() << " bytes |";
 			}
+			// End the line after printing each resource's information
+			os << "\n";
 		}
 	}
 }
