@@ -13,14 +13,13 @@ namespace seneca {
 	}
 
 	void Directory::update_parent_path(const std::string& new_path) {
-		// Similar logic to File::update_parent_path to avoid double slashes
 		if (!new_path.empty() && new_path.back() == '/') {
 			m_parent_path = new_path.substr(0, new_path.size() - 1);
 		}
 		else {
 			m_parent_path = new_path;
 		}
-		// Update the path for all contained resources
+
 		for (auto& resource : m_contents) {
 			resource->update_parent_path(path());
 		}
@@ -31,7 +30,6 @@ namespace seneca {
 	}
 
 	std::string Directory::path() const {
-		// return m_parent_path + m_name;
 		if (!m_parent_path.empty() && m_parent_path.back() != '/') {
 			return m_parent_path + "/" + m_name;
 		}
@@ -73,18 +71,29 @@ namespace seneca {
 		Resource* foundResource = nullptr;
 		bool isRecusive = std::find(flags.begin(), flags.end(), OpFlags::RECURSIVE) != flags.end();
 		auto it = m_contents.begin();
-
+		// std::cout << "m_contents = " << m_contents.size() << "\n";
 		while (it != m_contents.end() && foundResource == nullptr) {
-		if ((*it)->name() == name) {
-				foundResource = it->get();
-			}
-			else if (isRecusive && (*it)->type() == NodeType::DIR) {
-				Directory* dir = dynamic_cast<Directory*>(it->get());
-				if (dir != nullptr) {
-					foundResource = dir->find(name, flags);
+			if ((*it)->type() == NodeType::DIR) {
+				if ((*it)->name() == name) {
+					foundResource = it->get();
+				}else if (isRecusive) {
+					Directory* dir = dynamic_cast<Directory*>(it->get());
+					if (dir != nullptr) {
+						foundResource = dir->find(name, flags);
+					}
 				}
 			}
-			++it;
+			else if ((*it)->type() == NodeType::FILE) {
+				if ((*it)->name() == name) {
+					foundResource = it->get();
+				}else if (isRecusive) {
+					Directory* dir = dynamic_cast<Directory*>(it->get());
+					if (dir != nullptr) {
+						foundResource = dir->find(name, flags);
+					}
+				}
+			}
+			++it;		
 		}
 
 		return foundResource;
