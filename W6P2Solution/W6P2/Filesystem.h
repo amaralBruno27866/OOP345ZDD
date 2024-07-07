@@ -26,6 +26,8 @@ namespace seneca {
 
 		void addDirectory(const std::string& dirPath);
 		void addFile(const std::string& filePath, const std::string& fileContents);
+
+		std::string trim(const std::string& str);
 	};
 }
 

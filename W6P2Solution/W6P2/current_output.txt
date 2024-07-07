@@ -1,0 +1,45 @@
+Command Line:
+--------------------------
+  1: C:\Users\balen\OneDrive - Seneca\Seneca\OOP-345\OOP345ZDD\W6P2Solution\x64\Debug\W6P2.exe
+  2: filesystem.txt
+--------------------------
+
+--------------------------
+        FILESYSTEM
+--------------------------
+**EXPECTED EXCEPTION: Filesystem not created with invalid filename.
+
+Total size: 418 bytes
+D | images/         |
+D | videos/         |
+D | trash/          |
+D | documents/      |
+F | notes.txt       |
+--------------------------
+--------------------------
+        CHANGE DIR
+--------------------------
+**EXPECTED EXCEPTION: Couldn't change directory to invalid directory.
+
+Total size: 181 bytes
+F | cat.jpg         |    |   31 bytes |
+F | dog.jpg         |    |   63 bytes |
+F | .flamingo.gif   |    |   76 bytes |
+D | pngs/           |  1 |   11 bytes |
+--------------------------
+--------------------------
+           FIND
+--------------------------
+**EXPECTED ERROR: File elephant not found in //images recursively
+
+**EXPECTED ERROR: File elephant.png not found in //images non-recursively
+
+//imagespngselephant.png was found in fileystem
+--------------------------
+--------------------------
+     ADD TO DIRECTORY
+--------------------------
+Created directory classified/
+Total size: 97 bytes
+F | .aliens.txt     |    |   44 bytes |
+F | .polls.txt      |    |   53 bytes |

@@ -104,13 +104,13 @@ namespace seneca {
 			// Check the type of the resource and print the appropriate prefix
 			if (resource->type() == NodeType::DIR) {
 				os << "D | ";
+				std::string nameWithSlash = resource->name() + "/";
+				os << std::left << std::setw(15) << nameWithSlash << " | ";
 			}
 			else if (resource->type() == NodeType::FILE) {
 				os << "F | ";
+				os << std::left << std::setw(15) << resource->name() << " | ";
 			}
-
-			// Print the name of the resource, left-aligned within a field width of 15 characters
-			os << std::left << std::setw(15) << resource->name() << " | ";
 
 			// Check if the LONG flag is present
 			auto it = std::find(flags.begin(), flags.end(), FormatFlags::LONG);
@@ -127,7 +127,8 @@ namespace seneca {
 					os << "   | ";
 				}
 				// For both files and directories, print the size, right-aligned within a width of 10
-				os << std::right << std::setw(10) << resource->size() << " bytes |";
+				std::string sizeBytes = std::to_string(resource->size()) + " bytes";
+				os << std::right << std::setw(10) << sizeBytes << " |";
 			}
 			// End the line after printing each resource's information
 			os << "\n";

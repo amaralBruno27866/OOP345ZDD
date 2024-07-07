@@ -41,11 +41,12 @@ int main(int argc, char** argv) {
 
     try {
         seneca::Filesystem failedFs("non-existentfile");
-    } catch (...) {
+    }
+    catch (...) {
         std::cout << "**EXPECTED EXCEPTION: Filesystem not created with invalid filename.\n" << std::endl;
     }
 
-    if(std::is_copy_constructible<seneca::Filesystem>::value || std::is_copy_assignable<seneca::Filesystem>::value) {
+    if (std::is_copy_constructible<seneca::Filesystem>::value || std::is_copy_assignable<seneca::Filesystem>::value) {
         std::cout << "**EXCEPTION: Filesystem should not support copy operations.\n" << std::endl;
     }
 
@@ -56,7 +57,7 @@ int main(int argc, char** argv) {
     seneca::Filesystem fs(argv[1]);
 
     std::vector<seneca::FormatFlags> fflags;
-    
+
     std::vector<seneca::OpFlags> oflags;
     oflags.push_back(seneca::OpFlags::RECURSIVE);
 
@@ -73,7 +74,8 @@ int main(int argc, char** argv) {
 
     try {
         working_dir = fs.change_directory("pics");
-    } catch(std::invalid_argument&) {
+    }
+    catch (std::invalid_argument&) {
         std::cout << "**EXPECTED EXCEPTION: Couldn't change directory to invalid directory.\n" << std::endl;
     }
 
@@ -88,13 +90,13 @@ int main(int argc, char** argv) {
     ::printHeader("FIND");
 
     seneca::File* elephant_image = dynamic_cast<seneca::File*>(working_dir->find("elephant", oflags));
-    if(!elephant_image) {
+    if (!elephant_image) {
         std::cout << "**EXPECTED ERROR: File elephant not found in " << working_dir->path() << " recursively\n" << std::endl;
     }
 
     elephant_image = dynamic_cast<seneca::File*>(working_dir->find("elephant.png"));
     if (!elephant_image) {
-        std::cout << "**EXPECTED ERROR: File elephant.png not found in " << working_dir->path() <<  " non-recursively\n" << std::endl;
+        std::cout << "**EXPECTED ERROR: File elephant.png not found in " << working_dir->path() << " non-recursively\n" << std::endl;
     }
 
     elephant_image = dynamic_cast<seneca::File*>(working_dir->find("elephant.png", oflags));
@@ -136,7 +138,8 @@ int main(int argc, char** argv) {
 
     try {
         working_dir->remove("documents/");
-    } catch(...) {
+    }
+    catch (...) {
         std::cout << "**EXPECTED EXCEPTION: Trying to remove a directory without passing the recursive flag.\n\n";
     }
 

@@ -20,8 +20,32 @@ namespace seneca {
 	}
 
 	Filesystem::Filesystem(const std::string& filename, const std::string& rootName) {
-		m_root = new Directory(rootName.empty() ? "/" : rootName);
+		std::ifstream file(filename);
+		if (!file) {
+			throw std::invalid_argument("File not found or cannot be opened: " + filename);
+		}
+		m_root = new Directory(rootName.empty() ? "/" : trim(rootName));
 		m_current = m_root;
+
+		std::string line;
+		while (getline(file, line)) {
+			// Trim whitespace from the entire line and skip empty lines
+			line = trim(line);
+			if (line.empty()) continue;
+
+			// Determine if the line represents a file or a directory
+			if (line.back() == '/') {
+				// It's a directory
+				addDirectory(trim(line));
+			}
+			else {
+				// It's a file, split the line into path and content
+				size_t separatorPos = line.find('|');
+				std::string filePath = trim(line.substr(0, separatorPos));
+				std::string fileContent = (separatorPos != std::string::npos) ? trim(line.substr(separatorPos + 1)) : "";
+				addFile(filePath, fileContent);
+			}
+		}
 	}
 
 	Filesystem::~Filesystem() {
@@ -56,14 +80,20 @@ namespace seneca {
 			m_current = m_root;
 		}
 		else {
-			Resource* found = m_current->find(dirName, {});
-			if (!found) {
-				throw std::invalid_argument("Directory not found: " + dirName);
+			// Split the path to support changing to nested directories
+			auto components = splitPath(dirName);
+			Directory* newCurrent = m_current;
+			for (const auto& component : components) {
+				Resource* found = newCurrent->find(component, {});
+				if (!found) {
+					throw std::invalid_argument("Directory not found: " + component);
+				}
+				if (found->type() != seneca::NodeType::DIR) {
+					throw std::invalid_argument("Not a directory: " + component);
+				}
+				newCurrent = static_cast<Directory*>(found);
 			}
-			if (found->type() != seneca::NodeType::DIR) {
-				throw std::invalid_argument("Not a directory: " + dirName);
-			}
-			m_current = static_cast<Directory*>(found);
+			m_current = newCurrent;
 		}
 		return m_current;
 	}
@@ -108,5 +138,12 @@ namespace seneca {
 
 		auto newFile = new File(fileName, fileContents);
 		*current += newFile;
+	}
+
+	std::string Filesystem::trim(const std::string& str) {
+		size_t first = str.find_first_not_of(" \t");
+		if (first == std::string::npos) return "";
+		size_t last = str.find_last_not_of(" \t");
+		return str.substr(first, (last - first + 1));
 	}
 }
