@@ -30,11 +30,11 @@ D | pngs/           |  1 |   11 bytes |
 --------------------------
            FIND
 --------------------------
-**EXPECTED ERROR: File elephant not found in //images recursively
+**EXPECTED ERROR: File elephant not found in /images recursively
 
-**EXPECTED ERROR: File elephant.png not found in //images non-recursively
+**EXPECTED ERROR: File elephant.png not found in /images non-recursively
 
-//imagespngselephant.png was found in fileystem
+/imagespngselephant.png was found in fileystem
 --------------------------
 --------------------------
      ADD TO DIRECTORY

@@ -9,7 +9,13 @@ namespace seneca {
 	}
 
 	void File::update_parent_path(const std::string& new_path) {
-		m_parent_path = new_path;
+		// m_parent_path = new_path;
+		if (!new_path.empty() && new_path.back() == '/') {
+			m_parent_path = new_path.substr(0, new_path.size() - 1);
+		}
+		else {
+			m_parent_path = new_path;
+		}
 	}
 
 	NodeType File::type() const {
@@ -17,7 +23,13 @@ namespace seneca {
 	}
 
 	std::string File::path() const {
-		return m_parent_path + m_name;
+		// return m_parent_path + m_name;
+		if (!m_parent_path.empty() && m_parent_path.back() != '/') {
+			return m_parent_path + "/" + m_name;
+		}
+		else {
+			return m_parent_path + m_name;
+		}
 	}
 
 	std::string File::name() const {

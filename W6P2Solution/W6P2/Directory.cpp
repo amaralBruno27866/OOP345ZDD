@@ -12,7 +12,14 @@ namespace seneca {
 	}
 
 	void Directory::update_parent_path(const std::string& new_path) {
-		m_parent_path = new_path;
+		// Similar logic to File::update_parent_path to avoid double slashes
+		if (!new_path.empty() && new_path.back() == '/') {
+			m_parent_path = new_path.substr(0, new_path.size() - 1);
+		}
+		else {
+			m_parent_path = new_path;
+		}
+		// Update the path for all contained resources
 		for (auto& resource : m_contents) {
 			resource->update_parent_path(path());
 		}
@@ -23,7 +30,13 @@ namespace seneca {
 	}
 
 	std::string Directory::path() const {
-		return m_parent_path + m_name;
+		// return m_parent_path + m_name;
+		if (!m_parent_path.empty() && m_parent_path.back() != '/') {
+			return m_parent_path + "/" + m_name;
+		}
+		else {
+			return m_parent_path + m_name;
+		}
 	}
 
 	std::string Directory::name() const {
@@ -61,7 +74,7 @@ namespace seneca {
 		auto it = m_contents.begin();
 
 		while (it != m_contents.end() && foundResource == nullptr) {
-			if ((*it)->name() == name) {
+		if ((*it)->name() == name) {
 				foundResource = it->get();
 			}
 			else if (isRecusive && (*it)->type() == NodeType::DIR) {
