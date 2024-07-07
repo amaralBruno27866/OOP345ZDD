@@ -8,6 +8,7 @@ namespace seneca {
 	Directory::Directory(const std::string& name) {
 		m_name = name;
 	}
+
 	Directory::~Directory() {
 	}
 
@@ -92,7 +93,7 @@ namespace seneca {
 	void Directory::remove(const std::string& name, const std::vector<OpFlags>& flags) {
 		auto it = std::find_if(m_contents.begin(), m_contents.end(), [&name](const std::unique_ptr<Resource>& rsc) {
 			return rsc->name() == name;
-			});
+		});
 
 		if (it == m_contents.end()) {
 			throw std::runtime_error(name + " does not exist in " + this->name());
