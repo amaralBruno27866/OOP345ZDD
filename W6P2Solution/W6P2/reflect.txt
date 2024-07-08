@@ -1,0 +1,25 @@
+/*/////////////////////////////////////////////////////////////////////////
+				  Workshop - #6 P2
+Full Name  : Bruno Amaral
+Student ID#: 143766228
+Email      : bamaral2@myseneca.ca
+Section    : ZDD
+
+Authenticity Declaration:
+I declare this submission is the result of my own work and has not been
+shared with any other student or 3rd party content provider. This submitted
+piece of work is entirely of my own creation.
+/////////////////////////////////////////////////////////////////////////*/
+
+>>> Deallocating Dynamically Allocated Memory in a Vector of Resources
+In this project, dynamically allocated memory is used to store filesystem resources, such as files and directories. These resources are managed through pointers stored in a std::vector<seneca::Resource*>. The need to deallocate this memory arises from the fundamental principle of dynamic memory management in C++: every byte of memory allocated using new must be explicitly deallocated using delete to prevent memory leaks. Memory leaks occur when allocated memory is no longer accessible by the program, leading to wasted resources and potential system instability over time.
+When resources are added to the filesystem, they are created dynamically and their pointers are stored in the vector. When these resources are no longer needed, or when the filesystem is being destroyed, it's crucial to iterate over the vector, deallocating each resource to ensure that all allocated memory is properly freed. This process prevents memory leaks, ensuring that the program uses system resources efficiently and maintains stability.
+
+>>>Calling Specific Functions for Directory Objects Stored in a Resource*
+To call specific functions for Directory objects stored in a Resource*, a special C++ operation known as dynamic casting is used. This operation is necessary because Resource pointers could point to either File or Directory objects due to polymorphism. Polymorphism allows objects of different classes to be treated uniformly through a common base class pointer or reference. However, to call subclass-specific functions not present in the base class, the program needs to know the exact type of the object that the base class pointer is pointing to.
+Dynamic casting is used to safely downcast a base class pointer (Resource*) to a derived class pointer (Directory*). This operation checks at runtime if the conversion is valid, i.e., if the Resource* actually points to a Directory object. If the conversion is valid, dynamic casting returns a pointer to the Directory object, allowing the program to call Directory-specific functions. If the conversion is not valid, it returns nullptr, indicating the operation failed. This safety check is crucial to prevent undefined behavior that could occur if the program incorrectly assumes the type of the object.
+
+>>>Using stdvectorseneca::Resource* vs. stdvectorseneca::Resource
+1.	Polymorphism: The filesystem manages both files and directories, which are derived from the common base class Resource. Polymorphism in C++ requires the use of pointers or references to the base class to treat derived objects uniformly. A vector of objects (std::vector<seneca::Resource>) would not allow storing objects of derived classes (File and Directory), thus losing the ability to treat these objects polymorphically.
+2.	Object Slicing: Storing derived objects in a vector of base class objects would lead to object slicing, where the derived part of the objects is "sliced off" and only the base part is stored. This results in loss of data and functionality specific to the derived classes.
+3.	Dynamic Allocation: The filesystem's structure is dynamic, with resources being added and removed at runtime. Using pointers allows for dynamic allocation and deallocation of resources, providing flexibility in managing the filesystem's contents. A vector of objects would require objects to be copied or moved, which is less efficient and may not be feasible for non-copyable or non-movable objects.
