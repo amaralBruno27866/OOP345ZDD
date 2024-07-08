@@ -160,7 +160,7 @@ namespace seneca {
 				if (name.back() != '/') {
 					name += "/";
 				}
-				os << std::left << std::setw(15) << name << " | ";
+				os << std::left << std::setw(15) << name << " |  ";
 			}
 			else if (resource->type() == NodeType::FILE) {
 				os << "F | ";
