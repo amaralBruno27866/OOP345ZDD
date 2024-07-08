@@ -174,7 +174,7 @@ namespace seneca {
 				}
 				// For both files and directories, print the size, right-aligned within a width of 10
 				std::string sizeBytes = std::to_string(resource->size()) + " bytes";
-				os << std::right << std::setw(10) << sizeBytes << " |";
+				os << std::right << std::setw(10) << sizeBytes << " | ";
 			}
 			// End the line after printing each resource's information
 			os << "\n";
