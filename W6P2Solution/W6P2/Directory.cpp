@@ -96,7 +96,7 @@ namespace seneca {
 	Resource* Directory::find(const std::string& name, const std::vector<OpFlags>& flags) const {
 		// First, search among the immediate children
 		for (const auto& resource : m_contents) {
-			if (resource->name() == name) {
+			if (name.rfind(resource->name(), 0) == 0) {
 				return resource.get();
 			}
 		}
@@ -150,8 +150,12 @@ namespace seneca {
 			// Display the type of the resource
 			if (resource->type() == NodeType::DIR) {
 				os << "D | ";
-				std::string nameWithSlash = resource->name() + "/";
-				os << std::left << std::setw(15) << nameWithSlash << " | ";
+				std::string name = resource->name();
+				// Ensure only one trailing slash is present
+				if (name.back() != '/') {
+					name += "/";
+				}
+				os << std::left << std::setw(15) << name << " | ";
 			}
 			else if (resource->type() == NodeType::FILE) {
 				os << "F | ";
@@ -174,7 +178,7 @@ namespace seneca {
 				}
 				// For both files and directories, print the size, right-aligned within a width of 10
 				std::string sizeBytes = std::to_string(resource->size()) + " bytes";
-				os << std::right << std::setw(10) << sizeBytes << " | ";
+				os << std::right << std::setw(10) << sizeBytes << " |";
 			}
 			// End the line after printing each resource's information
 			os << "\n";

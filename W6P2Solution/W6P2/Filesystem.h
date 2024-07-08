@@ -34,7 +34,7 @@ namespace seneca {
 		Filesystem& operator+=(Resource*);
 		Filesystem(Filesystem&& fls) noexcept;
 		Filesystem& operator=(Filesystem&& fls) noexcept;
-		Directory* change_directory(const std::string& dirName = " ");
+		Directory* change_directory(const std::string& dirName = "");
 		Directory* get_current_directory() const;
 
 		void addDirectory(const std::string& dirPath);
