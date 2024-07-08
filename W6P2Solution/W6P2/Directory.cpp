@@ -94,9 +94,12 @@ namespace seneca {
 
 	// Searches for a resource by name within the directory, optionally performing a recursive search
 	Resource* Directory::find(const std::string& name, const std::vector<OpFlags>& flags) const {
+		std::string newName = name; // Create a copy of the original string
+		newName.erase(std::remove(newName.begin(), newName.end(), '/'), newName.end());
+
 		// First, search among the immediate children
 		for (const auto& resource : m_contents) {
-			if (name.rfind(resource->name(), 0) == 0) {
+			if (resource->name() == newName) {
 				return resource.get();
 			}
 		}
@@ -106,23 +109,25 @@ namespace seneca {
 			for (const auto& resource : m_contents) {
 				if (resource->type() == seneca::NodeType::DIR) {
 					Directory* dir = static_cast<Directory*>(resource.get());
-					Resource* found = dir->find(name, flags);
+					Resource* found = dir->find(newName, flags);
 					if (found) {
 						return found;
 					}
 				}
 			}
 		}
-
 		return nullptr; // Return nullptr if the resource is not found
 	}
 
 	// Removes a resource by name from the directory, with an option to recursively remove directories
 	void Directory::remove(const std::string& name, const std::vector<OpFlags>& flags) {
+		std::string newName = name; // Create a copy of the original string
+		newName.erase(std::remove(newName.begin(), newName.end(), '/'), newName.end());
+
 		// Find the resource by name
-		auto it = std::find_if(m_contents.begin(), m_contents.end(), [&name](const std::unique_ptr<Resource>& rsc) {
-			return rsc->name() == name;
-		});
+		auto it = std::find_if(m_contents.begin(), m_contents.end(), [&newName](const std::unique_ptr<Resource>& rsc) {
+			return rsc->name() == newName;
+			});
 
 		// If not found, throw an exception
 		if (it == m_contents.end()) {
