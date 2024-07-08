@@ -68,35 +68,26 @@ namespace seneca {
 	}
 
 	Resource* Directory::find(const std::string& name, const std::vector<OpFlags>& flags) const {
-		Resource* foundResource = nullptr;
-		bool isRecusive = std::find(flags.begin(), flags.end(), OpFlags::RECURSIVE) != flags.end();
-		auto it = m_contents.begin();
-		// std::cout << "m_contents = " << m_contents.size() << "\n";
-		while (it != m_contents.end() && foundResource == nullptr) {
-			if ((*it)->type() == NodeType::DIR) {
-				if ((*it)->name() == name) {
-					foundResource = it->get();
-				}else if (isRecusive) {
-					Directory* dir = dynamic_cast<Directory*>(it->get());
-					if (dir != nullptr) {
-						foundResource = dir->find(name, flags);
-					}
-				}
+		for (const auto& resource : m_contents) {
+			if (resource->name() == name) {
+				return resource.get();
 			}
-			else if ((*it)->type() == NodeType::FILE) {
-				if ((*it)->name() == name) {
-					foundResource = it->get();
-				}else if (isRecusive) {
-					Directory* dir = dynamic_cast<Directory*>(it->get());
-					if (dir != nullptr) {
-						foundResource = dir->find(name, flags);
-					}
-				}
-			}
-			++it;		
 		}
 
-		return foundResource;
+		// If recursive search is enabled and the resource is not found in the immediate children
+		if (std::find(flags.begin(), flags.end(), OpFlags::RECURSIVE) != flags.end()) {
+			for (const auto& resource : m_contents) {
+				if (resource->type() == seneca::NodeType::DIR) {
+					Directory* dir = static_cast<Directory*>(resource.get());
+					Resource* found = dir->find(name, flags);
+					if (found) {
+						return found;
+					}
+				}
+			}
+		}
+
+		return nullptr; // Return nullptr if the resource is not found
 	}
 
 	void Directory::remove(const std::string& name, const std::vector<OpFlags>& flags) {

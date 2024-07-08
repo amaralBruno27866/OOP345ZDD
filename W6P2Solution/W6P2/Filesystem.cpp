@@ -80,18 +80,15 @@ namespace seneca {
 			m_current = m_root; // Change to root if no directory name is provided
 		}
 		else {
-			// Split the path to support changing to nested directories
 			auto components = splitPath(dirName);
-			Directory* newCurrent = m_current; // Start from the current directory
+			Directory* newCurrent = m_root; // Start from the root directory
 
 			for (const auto& component : components) {
 				Resource* found = newCurrent->find(component, {});
 				if (!found) {
-					// Throw an exception with a specific error message if the directory does not exist
 					throw std::invalid_argument("Cannot change directory! " + component + " not found!");
 				}
 				if (found->type() != seneca::NodeType::DIR) {
-					// Throw an exception if the found resource is not a directory
 					throw std::invalid_argument("Cannot change directory! " + component + " is not a directory!");
 				}
 				newCurrent = static_cast<Directory*>(found); // Update the current directory
@@ -123,7 +120,6 @@ namespace seneca {
 			}
 		}
 	}
-
 
 	void Filesystem::addFile(const std::string& filePath, const std::string& fileContents) {
 		auto components = splitPath(filePath);
