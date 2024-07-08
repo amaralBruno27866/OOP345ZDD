@@ -15,7 +15,7 @@
 #include "Utilities.h"
 
 namespace seneca {
-	// The Station class represents a station in a factory.
+	// The Station class represents a station in a factory for this code.
 	class Item {
 	public:
 		std::string m_itemName;
