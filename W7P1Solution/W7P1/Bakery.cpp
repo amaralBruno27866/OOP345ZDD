@@ -53,7 +53,7 @@ namespace seneca {
 		out << " * " << std::left << std::setw(5) << b.stock;
 		out << " * " << std::right << std::setw(8) << std::setprecision(2) << std::fixed << b.price;
 		out << " *";
-		out << "\n";
+		out << std::endl;
 		return out;
 	}
 
