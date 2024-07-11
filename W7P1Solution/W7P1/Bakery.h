@@ -11,7 +11,7 @@
 
 namespace seneca {
 	enum class BakedType {
-		BREAD, PASTERY
+		BREAD, PASTRY
 	};
 
 	struct BakedGood {

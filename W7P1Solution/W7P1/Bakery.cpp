@@ -19,7 +19,7 @@ namespace seneca {
 
 			// Parse BakedType
 			std::string typeStr = trim(line.substr(0, 8));
-			good.type = (typeStr == "Bread") ? BakedType::BREAD : BakedType::PASTERY;
+			good.type = (typeStr == "Bread") ? BakedType::BREAD : BakedType::PASTRY;
 
 			// Parse Description
 			good.description = trim(line.substr(8, 20));
@@ -47,7 +47,7 @@ namespace seneca {
 		// Use the trim function to clean up the description before printing
 		std::string trimmedDescription = trim(b.description);
 
-		out << "* " << std::left << std::setw(10) << ((b.type == BakedType::BREAD) ? "Bread" : "Pastery");
+		out << "* " << std::left << std::setw(10) << ((b.type == BakedType::BREAD) ? "Bread" : "Pastry");
 		out << " * " << std::left << std::setw(20) << trimmedDescription;
 		out << " * " << std::left << std::setw(5) << b.shelfLife;
 		out << " * " << std::left << std::setw(5) << b.stock;
