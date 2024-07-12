@@ -32,37 +32,44 @@ namespace seneca {
 	void Bakery::showGoods(std::ostream& os) const {
 		std::for_each(goods.begin(), goods.end(), [&os](const BakedGood& good) {
 			os << good;
-			});
+		});
+
 		auto totalStock = std::accumulate(goods.begin(), goods.end(), 0, [](int total, const BakedGood& good) {
 			return total + good.stock;
-			});
+		});
+
 		auto totalPrice = std::accumulate(goods.begin(), goods.end(), 0.0, [](double total, const BakedGood& good) {
 			return total += good.price;
-			});
+		});
+
 		os << "Total stock: " << totalStock << "\n";
 		os << "Total price: " << std::fixed << std::setprecision(2) << totalPrice << std::endl;
 	}
 
 	void Bakery::sortBakery(const std::string& field) {
 		if (field == "Description") {
+			// Bakery sorted by desc: Arrange in ascending order according to description
 			std::sort(goods.begin(), goods.end(), [](const BakedGood& a, const BakedGood& b) {
 				return a.description < b.description;
-				});
+			});
 		}
 		else if (field == "Shelf") {
+			// Bakery sorted by shelf: Arrange in ascending order according to shelf
 			std::sort(goods.begin(), goods.end(), [](const BakedGood& a, const BakedGood& b) {
 				return a.shelfLife < b.shelfLife;
-				});
+			});
 		}
 		else if (field == "Stock") {
+			// The combined collection ordered by price: Arrange in ascending order according to price
 			std::sort(goods.begin(), goods.end(), [](const BakedGood& a, const BakedGood& b) {
 				return a.stock < b.stock;
-				});
+			});
 		}
 		else if (field == "Price") {
+			// Candy Bread are not in stock : Organizar em ordem crescente de acordo com price
 			std::sort(goods.begin(), goods.end(), [](const BakedGood& a, const BakedGood& b) {
 				return a.price < b.price;
-				});
+			});
 		}
 	}
 
@@ -71,21 +78,21 @@ namespace seneca {
 		combined.insert(combined.end(), other.goods.begin(), other.goods.end());
 		std::sort(combined.begin(), combined.end(), [](const BakedGood& a, const BakedGood& b) {
 			return a.price < b.price;
-			});
+		});
 		return combined;
 	}
 
 	bool Bakery::inStock(const std::string& description, BakedType type) const {
 		return std::any_of(goods.begin(), goods.end(), [&description, &type](const BakedGood& good) {
 			return good.description == description && good.type == type && good.stock > 0;
-			});
+		});
 	}
 
 	std::list<BakedGood> Bakery::outOfStock(BakedType type) const	{
 		std::list<BakedGood> outOfStockItems;
 		std::copy_if(goods.begin(), goods.end(), std::back_inserter(outOfStockItems), [&type](const BakedGood& good) {
 			return good.type == type && good.stock == 0;
-			});
+		});
 		return outOfStockItems;
 	}
 
