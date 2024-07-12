@@ -37,9 +37,10 @@ namespace seneca {
 			return total + good.stock;
 			});
 		auto totalPrice = std::accumulate(goods.begin(), goods.end(), 0.0, [](double total, const BakedGood& good) {
-			return total + good.price * good.stock;
+			return total += good.price;
 			});
-		os << "Total stock: " << totalStock << ", Total price: $" << std::fixed << std::setprecision(2) << totalPrice << std::endl;
+		os << "Total stock: " << totalStock << "\n";
+		os << "Total price: " << std::fixed << std::setprecision(2) << totalPrice << std::endl;
 	}
 
 	void Bakery::sortBakery(const std::string& field) {
