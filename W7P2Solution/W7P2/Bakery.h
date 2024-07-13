@@ -29,13 +29,13 @@ namespace seneca {
 	};
 
 	struct BakedGood {
-		BakedType type;
-		std::string description;
-		int shelfLife;
-		int stock;
-		double price;
+		BakedType type = BakedType::BREAD;
+		std::string description = {};
+		int shelfLife = {};
+		int stock = {};
+		double price = {};
 
-		BakedGood(BakedType t = BakedType::BREAD, std::string desc = {}, int life = {}, int stk = {}, double prc = {});
+		/*BakedGood(BakedType t = BakedType::BREAD, std::string desc = {}, int life = {}, int stk = {}, double prc = {});*/
 	};
 
 	class Bakery {

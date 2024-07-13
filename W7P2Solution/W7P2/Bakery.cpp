@@ -83,11 +83,19 @@ namespace seneca {
 	}
 
 	std::vector<BakedGood> Bakery::combine(const Bakery& other) {
-		std::vector<BakedGood> combined = goods;
-		combined.insert(combined.end(), other.goods.begin(), other.goods.end());
-		std::sort(combined.begin(), combined.end(), [](const BakedGood& a, const BakedGood& b) {
-			return a.price < b.price;
-		});
+		
+		std::vector<BakedGood> combined(goods.size() + other.goods.size());;
+
+		sortBakery("Price");
+		Bakery copy = other;
+		copy.sortBakery("Price");
+
+		std::merge(goods.begin(), goods.end(), other.goods.begin(), other.goods.end(), combined.begin() /*where it will be saved*/,
+			[](const BakedGood& b1, const BakedGood& b2) {
+				return b1.price < b2.price;
+			}
+		);
+
 		return combined;
 	}
 
@@ -123,6 +131,6 @@ namespace seneca {
 		return str.substr(first, (last - first + 1));
 	}
 
-	BakedGood::BakedGood(BakedType t, std::string desc, int life, int stk, double prc)
-		: type(t), description(std::move(desc)), shelfLife(life), stock(stk), price(prc) {}
+	/*BakedGood::BakedGood(BakedType t, std::string desc, int life, int stk, double prc)
+		: type(t), description(std::move(desc)), shelfLife(life), stock(stk), price(prc) {}*/
 }
