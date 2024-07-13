@@ -18,6 +18,7 @@
 - Workshop #6 Part1 - done
 - Workshop #6 Part2 - done - 00/00
 - Workshop #7 Part1 - done
+- Workshop #7 Part2 - done
 
 # MILESTONE PROJECT
 - Milestone #1 - started - 100%
