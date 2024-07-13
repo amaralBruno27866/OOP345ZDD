@@ -1,5 +1,5 @@
 /*/////////////////////////////////////////////////////////////////////////
-				  Workshop - #6 P2
+				  Workshop - #7 P2
 Full Name  : Bruno Amaral
 Student ID#: 143766228
 Email      : bamaral2@myseneca.ca
