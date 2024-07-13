@@ -1,3 +1,16 @@
+/*/////////////////////////////////////////////////////////////////////////
+				  Workshop - #6 P2
+Full Name  : Bruno Amaral
+Student ID#: 143766228
+Email      : bamaral2@myseneca.ca
+Section    : ZDD
+
+Authenticity Declaration:
+I declare this submission is the result of my own work and has not been
+shared with any other student or 3rd party content provider. This submitted
+piece of work is entirely of my own creation.
+/////////////////////////////////////////////////////////////////////////*/
+
 #ifndef SENECA_BAKERY_H
 #define SENECA_BAKERY_H
 
@@ -22,7 +35,7 @@ namespace seneca {
 		int stock;
 		double price;
 
-		BakedGood(BakedType t = BakedType::BREAD, std::string desc = "", int life = 0, int stk = 0, double prc = 0.0);
+		BakedGood(BakedType t = BakedType::BREAD, std::string desc = {}, int life = {}, int stk = {}, double prc = {});
 	};
 
 	class Bakery {
@@ -32,6 +45,7 @@ namespace seneca {
 	public:
 		Bakery(const std::string& filename);
 		void showGoods(std::ostream& os) const;
+
 		void sortBakery(const std::string& field);
 		std::vector<BakedGood> combine(const Bakery& other);
 		bool inStock(const std::string& description, BakedType type) const;

@@ -1,3 +1,16 @@
+/*/////////////////////////////////////////////////////////////////////////
+				  Workshop - #6 P2
+Full Name  : Bruno Amaral
+Student ID#: 143766228
+Email      : bamaral2@myseneca.ca
+Section    : ZDD
+
+Authenticity Declaration:
+I declare this submission is the result of my own work and has not been
+shared with any other student or 3rd party content provider. This submitted
+piece of work is entirely of my own creation.
+/////////////////////////////////////////////////////////////////////////*/
+
 #define _CRT_SECURE_NO_WARNINGS
 #include <string>
 #include <vector>
@@ -31,7 +44,7 @@ namespace seneca {
 
 	void Bakery::showGoods(std::ostream& os) const {
 		std::for_each(goods.begin(), goods.end(), [&os](const BakedGood& good) {
-			os << good;
+			os << good << "\n";
 		});
 
 		auto totalStock = std::accumulate(goods.begin(), goods.end(), 0, [](int total, const BakedGood& good) {
@@ -47,30 +60,26 @@ namespace seneca {
 	}
 
 	void Bakery::sortBakery(const std::string& field) {
-		if (field == "Description") {
-			// Bakery sorted by desc: Arrange in ascending order according to description
-			std::sort(goods.begin(), goods.end(), [](const BakedGood& a, const BakedGood& b) {
-				return a.description < b.description;
-			});
-		}
-		else if (field == "Shelf") {
-			// Bakery sorted by shelf: Arrange in ascending order according to shelf
-			std::sort(goods.begin(), goods.end(), [](const BakedGood& a, const BakedGood& b) {
-				return a.shelfLife < b.shelfLife;
-			});
-		}
-		else if (field == "Stock") {
-			// The combined collection ordered by price: Arrange in ascending order according to price
-			std::sort(goods.begin(), goods.end(), [](const BakedGood& a, const BakedGood& b) {
-				return a.stock < b.stock;
-			});
-		}
-		else if (field == "Price") {
-			// Candy Bread are not in stock : Organizar em ordem crescente de acordo com price
-			std::sort(goods.begin(), goods.end(), [](const BakedGood& a, const BakedGood& b) {
-				return a.price < b.price;
-			});
-		}
+		auto func = [field](const BakedGood& g1, const BakedGood& g2) {
+			bool ret{ false };
+
+			if (field == "Description") {
+				ret = g1.description < g2.description;
+			}
+			else if (field == "Shelf") {
+				ret = g1.shelfLife < g2.shelfLife;
+			}
+			else if (field == "Stock") {
+				ret = g1.stock < g2.stock;
+			}
+			else if (field == "Price") {
+				ret = g1.price < g2.price;
+			}
+
+			return ret;
+			};
+
+		std::sort(goods.begin(), goods.end(), func);
 	}
 
 	std::vector<BakedGood> Bakery::combine(const Bakery& other) {
@@ -97,15 +106,13 @@ namespace seneca {
 	}
 
 	std::ostream& operator<<(std::ostream& out, const BakedGood& b) {
-		std::string trimmedDescription = trim(b.description);
-
 		out << "* " << std::left << std::setw(10) << ((b.type == BakedType::BREAD) ? "Bread" : "Pastry");
-		out << " * " << std::left << std::setw(20) << trimmedDescription;
+		out << " * " << std::left << std::setw(20) << b.description;
 		out << " * " << std::left << std::setw(5) << b.shelfLife;
 		out << " * " << std::left << std::setw(5) << b.stock;
-		out << " * " << std::right << std::setw(8) << std::setprecision(2) << std::fixed << b.price;
+		out << " * " << std::right << std::setw(8) << std::fixed << std::setprecision(2) << b.price;
 		out << " * ";
-		out << std::endl;
+
 		return out;
 	}
 
