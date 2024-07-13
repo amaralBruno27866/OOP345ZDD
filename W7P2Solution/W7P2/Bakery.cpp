@@ -55,8 +55,8 @@ namespace seneca {
 			return total += good.price;
 		});
 
-		os << "Total stock: " << totalStock << "\n";
-		os << "Total price: " << std::fixed << std::setprecision(2) << totalPrice << std::endl;
+		os << "Total Stock: " << totalStock << "\n";
+		os << "Total Price: " << std::fixed << std::setprecision(2) << totalPrice << std::endl;
 	}
 
 	void Bakery::sortBakery(const std::string& field) {
