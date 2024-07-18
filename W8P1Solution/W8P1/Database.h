@@ -1,10 +1,13 @@
 #ifndef SENECA_DATABASE_H
 #define SENECA_DATABASE_H
 
+#include <cstring>
+#include <string>
 #include <memory>
 
 namespace seneca {
-	enum class Err_Status {
+	enum class Err_Status
+	{
 		Err_Success,
 		Err_NotFound,
 		Err_OutOfMemory,
