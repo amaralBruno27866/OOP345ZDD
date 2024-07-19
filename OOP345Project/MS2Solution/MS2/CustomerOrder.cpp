@@ -1,96 +1,74 @@
-// Name: Bruno Amaral
-// Seneca Student ID: 143766228
-// Seneca email: bamaral2@myseneca.ca
-// Date of completion:
-//
-// I confirm that I am the only author of this file
-//   and the content was created entirely by me.
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
-#include <string>
 #include <iomanip>
+#include <string>
+#include <algorithm>
 #include <vector>
-#include <utility>
 #include "Utilities.h"
 #include "Station.h"
 #include "CustomerOrder.h"
 
 namespace seneca {
+	size_t CustomerOrder::m_widthField = 0;
+
 	CustomerOrder::CustomerOrder() : m_name(""), m_product(""), m_cntItem(0), m_lstItem(nullptr) {}
 
 	CustomerOrder::CustomerOrder(const std::string& str) {
 		Utilities u;
-		size_t next_pos = 0;
+		size_t np = 0;
 		bool more = true;
 
-		m_name = u.extractToken(str, next_pos, more);
+		m_name = u.extractToken(str, np, more);
 
 		if (more) {
-			m_product = u.extractToken(str, next_pos, more);
+			m_product = u.extractToken(str, np, more);
 		}
 
-		std::vector<std::string> itemNames;
+		std::vector<std::string> item;
+
 		while (more) {
-			itemNames.push_back(u.extractToken(str, next_pos, more));
+			item.push_back(u.extractToken(str, np, more));
 		}
 
-		m_cntItem = itemNames.size();
+		m_cntItem = item.size();
 		m_lstItem = new Item * [m_cntItem];
 
-		for (size_t i = 0; i < m_cntItem; ++i) {
-			m_lstItem[i] = new Item(itemNames[i]);
+		for (size_t i = 0; i < m_cntItem; i++) {
+			m_lstItem[i] = new Item(item[i]);
 		}
 
-		if(u.getFieldWidth() > CustomerOrder::m_widthField) {
+		if (u.getFieldWidth() > CustomerOrder::m_widthField) {
 			CustomerOrder::m_widthField = u.getFieldWidth();
 		}
 	}
 
-	CustomerOrder::CustomerOrder(const CustomerOrder& oth) {
-		m_name = oth.m_name;
-		m_product = oth.m_product;
-		m_cntItem = oth.m_cntItem;
-		m_lstItem = new Item * [m_cntItem];
-		for (size_t i = 0; i < m_cntItem; i++) {
-			m_lstItem[i] = new Item(oth.m_lstItem[i]->m_itemName);
-		}
+	CustomerOrder::CustomerOrder(const CustomerOrder& co) {
+		throw std::logic_error("Copy constructor not allowed");
 	}
 
-	CustomerOrder& CustomerOrder::operator=(const CustomerOrder& oth) {
-		if(this != &oth) {
-			delete[] m_lstItem;
-			m_name = oth.m_name;
-			m_product = oth.m_product;
-			m_cntItem = oth.m_cntItem;
-			m_lstItem = new Item * [m_cntItem];
+	CustomerOrder::CustomerOrder(CustomerOrder&& co) noexcept : m_name(std::move(co.m_name)), m_product(std::move(co.m_product)), m_cntItem(co.m_cntItem), m_lstItem(co.m_lstItem) {
+		co.m_lstItem = nullptr;
+		co.m_cntItem = 0;
+	}
+
+	CustomerOrder& CustomerOrder::operator=(CustomerOrder&& co) noexcept {
+		if (this != &co) {
 			for (size_t i = 0; i < m_cntItem; i++) {
-				m_lstItem[i] = new Item(oth.m_lstItem[i]->m_itemName);
+				delete m_lstItem[i];
 			}
-		}
-		return *this;
-	}
-
-	CustomerOrder::CustomerOrder(CustomerOrder&& other) noexcept
-		: m_name(std::move(other.m_name)), m_product(std::move(other.m_product)),
-		m_cntItem(other.m_cntItem), m_lstItem(other.m_lstItem) {
-		other.m_lstItem = nullptr;
-		other.m_cntItem = 0;
-	}
-
-	CustomerOrder& CustomerOrder::operator=(CustomerOrder&& other) noexcept {
-		if (this != &other) {
 			delete[] m_lstItem;
-			m_name = std::move(other.m_name);
-			m_product = std::move(other.m_product);
-			m_cntItem = other.m_cntItem;
-			m_lstItem = other.m_lstItem;
-			other.m_lstItem = nullptr;
-			other.m_cntItem = 0;
+			m_name = std::move(co.m_name);
+			m_product = std::move(co.m_product);
+			m_cntItem = co.m_cntItem;
+			m_lstItem = co.m_lstItem;
+
+			co.m_lstItem = nullptr;
+			co.m_cntItem = 0;
 		}
 		return *this;
 	}
 
-	CustomerOrder::~CustomerOrder() {
+	CustomerOrder::~CustomerOrder()	{
 		for (size_t i = 0; i < m_cntItem; i++) {
 			delete m_lstItem[i];
 		}
@@ -98,35 +76,37 @@ namespace seneca {
 	}
 
 	bool CustomerOrder::isOrderFilled() const {
-		bool isValid = true;
-		for (size_t i = 0; i < m_cntItem && isValid; ++i) {
+		bool isTrue = true;
+		for (size_t i = 0; i < m_cntItem; i++) {
 			if (!m_lstItem[i]->m_isFilled) {
-				isValid = false;
+				isTrue = false;
 			}
 		}
-
-		return isValid;
+		return isTrue;;
 	}
 
 	bool CustomerOrder::isItemFilled(const std::string& itemName) const {
-		bool isValid = true;
-		for(size_t i = 0; i < m_cntItem && isValid; ++i) {
-			if (m_lstItem[i]->m_itemName == itemName && !m_lstItem[i]->m_isFilled) {
-				isValid = false;
+		bool fail = true;
+		for(size_t i = 0; i < m_cntItem; i++) {
+			if (m_lstItem[i]->m_itemName == itemName) {
+				if (!m_lstItem[i]->m_isFilled) {
+					fail = false;
+				}
 			}
 		}
-		return isValid;
+		return fail;
 	}
 
 	void CustomerOrder::fillItem(Station& station, std::ostream& os) {
-		for (size_t i = 0; i < m_cntItem; ++i) {
-			if (m_lstItem[i]->m_itemName == station.getItemName() && !m_lstItem[i]->m_isFilled) {
-				if (station.getQuantity() > 0) {
-					station.updateQuantity();
+		bool itemFound = false;
+		for (size_t i = 0; i < m_cntItem && !itemFound; i++) {
+			if (m_lstItem[i]->m_itemName == station.getItemName()) {
+				itemFound = true;
+				if (!m_lstItem[i]->m_isFilled && station.getQuantity() > 0) {
 					m_lstItem[i]->m_serialNumber = station.getNextSerialNumber();
 					m_lstItem[i]->m_isFilled = true;
-
-					os << "Filled " << m_name;
+					station.updateQuantity();
+					os << "    Filled " << m_name;
 					os << ", ";
 					os << m_product;
 					os << " [";
@@ -143,18 +123,20 @@ namespace seneca {
 				}
 			}
 		}
+		//if (!itemFound) {
+		//	throw std::logic_error("Item not found");
+		//}
 	}
 
-	void CustomerOrder::display(std::ostream& os) const {
+	void CustomerOrder::display(std::ostream& os) const	{
 		os << m_name << " - " << m_product << std::endl;
 
-		for (size_t i = 0; i < m_cntItem; ++i) {
+		for (size_t i = 0; i < m_cntItem; i++) {
 			os << "[" << std::setw(6) << std::setfill('0') << m_lstItem[i]->m_serialNumber << "] ";
 			os << std::left << std::setw(m_widthField) << std::setfill(' ') << m_lstItem[i]->m_itemName;
 			os << " - ";
-			os << (m_lstItem[i]->m_isFilled ? "FILLED" : "TO BE FILLED") << std::endl;
+			os << (m_lstItem[i]->m_isFilled ? "FILLED" : "TO BE FILLED");
+			os << "\n";
 		}
 	}
-
-	size_t CustomerOrder::m_widthField = 0;
 }
