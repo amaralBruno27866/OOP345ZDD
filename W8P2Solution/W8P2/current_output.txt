@@ -1,0 +1,68 @@
+Command Line:
+--------------------------
+  1: C:\Users\balen\OneDrive - Seneca\Seneca\OOP-345\OOP345ZDD\W8P2Solution\x64\Debug\W8P2.exe
+  2: data_str.txt
+  3: data_num.txt
+--------------------------
+
+[0000014F02BD6AB0] Database(const std::string&)
+[0000014F02BD9590] Database(const std::string&)
+Same database.
+Same database.
+Different database.
+Different database.
+
+******************************
+Ashleigh Barty earned $3,765,182
+Barbora Krejcikova earned $2,800,013
+Karolina Pliskova earned $2,061,970
+Unable to retrieve earnings for Leylah Fernandez
+Naomi Osaka earned $2,126,222
+Leylah Fernandez earned JYVXBYY\
+
+******************************
+Ashleigh Barty earned 3765182
+Barbora Krejcikova earned 2800013
+Karolina Pliskova earned 2061970
+Unable to retrieve earnings for Leylah Fernandez
+Naomi Osaka earned 2126222
+Leylah Fernandez earned 3399988123388817019
+
+******************************
+
+The content of the file [data_str.txt.bkp.txt]
+---------------------------------------------------------------------
+File size in bytes: [ 206 ]
+0001: [ 4e 61 6f 6d 69 5f 4f 73 61 6b 61 20 4a 5c 42 5f 5c 58 42 5c ]
+0002: [ 5c 5c 20 20 20 20 2d 3e 20 5c 42 5f 5c 58 42 5c 5c 5c 0d 0a ]
+0003: [ 41 73 68 6c 65 69 67 68 5f 42 61 72 74 79 20 4a 5d 42 59 58 ]
+0004: [ 5b 42 5f 56 5c 20 2d 3e 20 5d 42 59 58 5b 42 5f 56 5c 0d 0a ]
+0005: [ 4b 61 72 6f 6c 69 6e 61 5f 50 6c 69 73 6b 6f 76 61 20 4a 5c ]
+0006: [ 42 5e 58 5f 42 57 59 5e 20 2d 3e 20 5c 42 5e 58 5f 42 57 59 ]
+0007: [ 5e 0d 0a 42 61 72 62 6f 72 61 5f 4b 72 65 6a 63 69 6b 6f 76 ]
+0008: [ 61 20 4a 5c 42 56 5e 5e 42 5e 5f 5d 20 2d 3e 20 5c 42 56 5e ]
+0009: [ 5e 42 5e 5f 5d 0d 0a 4c 65 79 6c 61 68 20 46 65 72 6e 61 6e ]
+000a: [ 64 65 7a 20 20 20 20 20 20 20 20 20 20 2d 3e 20 24 37 38 36 ]
+000b: [ 2c 37 37 32 0d 0a ]
+---------------------------------------------------------------------
+
+The content of the file [data_num.txt.bkp.txt]
+---------------------------------------------------------------------
+File size in bytes: [ 273 ]
+0001: [ 42 61 72 62 6f 72 61 5f 4b 72 65 6a 63 69 6b 6f 76 61 20 33 ]
+0002: [ 33 39 39 39 38 38 31 32 33 33 38 36 38 37 37 36 30 32 20 2d ]
+0003: [ 3e 20 33 39 39 39 38 38 31 32 33 33 38 36 38 37 37 36 30 32 ]
+0004: [ 0d 0a 4b 61 72 6f 6c 69 6e 61 5f 50 6c 69 73 6b 6f 76 61 20 ]
+0005: [ 33 33 39 39 39 38 38 31 32 33 33 38 39 36 38 30 30 36 31 20 ]
+0006: [ 2d 3e 20 33 39 39 39 38 38 31 32 33 33 38 39 36 38 30 30 36 ]
+0007: [ 31 0d 0a 41 73 68 6c 65 69 67 68 5f 42 61 72 74 79 20 33 33 ]
+0008: [ 39 39 39 38 38 31 32 33 33 38 37 39 37 36 38 34 39 20 2d 3e ]
+0009: [ 20 33 39 39 39 38 38 31 32 33 33 38 37 39 37 36 38 34 39 0d ]
+000a: [ 0a 4e 61 6f 6d 69 5f 4f 73 61 6b 61 20 33 33 39 39 39 38 38 ]
+000b: [ 31 32 33 33 38 37 35 31 38 36 32 35 20 2d 3e 20 33 39 39 39 ]
+000c: [ 38 38 31 32 33 33 38 37 35 31 38 36 32 35 0d 0a 4c 65 79 6c ]
+000d: [ 61 68 20 46 65 72 6e 61 6e 64 65 7a 20 20 20 20 20 20 20 20 ]
+000e: [ 20 20 2d 3e 20 37 38 36 37 37 32 0d 0a ]
+---------------------------------------------------------------------
+[0000014F02BD9590] ~Database()
+[0000014F02BD6AB0] ~Database()
