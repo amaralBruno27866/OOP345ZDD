@@ -10,3 +10,18 @@ I declare this submission is the result of my own work and has not been
 shared with any other student or 3rd party content provider. This submitted
 piece of work is entirely of my own creation.
 /////////////////////////////////////////////////////////////////////////*/
+
+#1.
+The unique_ptr forces the use of exclusive management, which means that you can only have one unique_ptr that points to one resource at a time, this does not fit into the Singleton pattern that was used in the Database class, as in this class the pointer is shared . Using unique_ptr limits access, which hinders sharing between different parts of the code.
+
+#two.
+First I defined the class as a <typename T> template, which shows that it is a template. then I adapted the variables and functions so that they could use a generic type of type "T", finally I applied the specializations as indicated in the workshop statement.
+
+#3.
+Another way would be to create a function-local static variable within a function, thus resuming the instance itself.
+
+#4.
+My knowledge is still limited but seeing this wouldn't be a BUG, ​​it would be more of a design choice, as we are using the Singleton pattern and it tries to ensure that there is only one instance during the program's life cycle, allow copies or move things it would be "breaking the rules" which could create more problems than it solves.
+
+#5.
+Honestly, I didn't understand this part well, but in my opinion, this seems like a misuse or a misunderstanding regarding the implementation, this generated a lot of confusion and discussion for this section, it was very problematic to resolve this point.
