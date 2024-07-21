@@ -1,5 +1,5 @@
 /*/////////////////////////////////////////////////////////////////////////
-				  Workshop - #8 P2
+                  Workshop - #8 P2
 Full Name  : Bruno Amaral
 Student ID#: 143766228
 Email      : bamaral2@myseneca.ca
@@ -124,29 +124,6 @@ namespace seneca {
 
     template<typename T>
     std::mutex Database<T>::instanceMutex; // Define the static mutex
-
-    // Specialization of encryptDecrypt for std::string
-    inline void encryptDecrypt(std::string& value) {
-        const char secret[] = "secret encryption key";
-        for (char& c : value) {
-            for (const char& k : secret) {
-                c ^= k;
-            }
-        }
-    }
-
-    // Specialization of encryptDecrypt for long long
-    inline void encryptDecrypt(long long& value) {
-        const char secret[] = "super secret encryption key";
-        char* valueBytes = reinterpret_cast<char*>(&value);
-        for (size_t i = 0; i < sizeof(long long); ++i) {
-            for (const char& k : secret) {
-                valueBytes[i] ^= k;
-            }
-        }
-    }
 }
 
 #endif // !SENECA_DATABASE_H
-
-
