@@ -113,7 +113,8 @@ namespace seneca {
             for (size_t i = 0; i < keys.size(); ++i) {
                 T encryptedValue = values[i];
                 encryptDecrypt(encryptedValue); // Encrypt the value
-                backupFile << keys[i] << " " << encryptedValue << "\n";
+                int padding = 20 - keys[i].length();
+                backupFile << keys[i] << std::string(padding, ' ') << "      -> " << encryptedValue << std::endl;
             }
             std::cout << "[" << this << "] ~Database()" << std::endl;
         }
