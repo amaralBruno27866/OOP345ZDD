@@ -14,122 +14,130 @@ piece of work is entirely of my own creation.
 #ifndef SENECA_DATABASE_H
 #define SENECA_DATABASE_H
 
+#include <memory>
 #include <fstream>
 #include <sstream>
 #include <iostream>
 #include <iomanip>
 #include <algorithm>
 #include <string>
-#include <memory>
 #include <vector>
+#include <type_traits>
 
 namespace seneca {
-	enum class Err_Status
-	{
-		Err_Success,
-		Err_NotFound,
-		Err_OutOfMemory,
-	};
 
-	template <typename T>
-	class Database {
-	private:
-		static std::shared_ptr<Database<T>> instance;
-		std::string keys[20];
-		T values[20] {};
-		std::string filename;
-		int entryCount = 0;
+    enum class Err_Status {
+        Err_Success,
+        Err_NotFound,
+        Err_OutOfMemory,
+    };
 
-		Database(const std::string& filename) : filename(filename), entryCount(0) {
-			std::cout << "[" << this << "] Database(const std::string&)\n";
-			std::fill_n(values, 20, T{});
-			std::ifstream file(filename);
-			std::string line;
-			while (std::getline(file, line)) {
-				std::string key, value;
-				size_t spacePos = line.find(' ');
-				if (spacePos != std::string::npos) {
-					key = line.substr(0, spacePos);
-					value = line.substr(spacePos + 1);
-					std::replace(key.begin(), key.end(), '_', ' ');
-					if (entryCount < 20) {
-						keys[entryCount] = key;
-						std::istringstream iss(value);
-						if (!(iss >> values[entryCount])) {
-							std::cerr << "Error: Conversion from std::string to T failed for value: " << value << std::endl;
-						}
-						++entryCount;
-					}
-				}
-			}
-		}
+    // Forward declaration of encryptDecrypt functions for specific types
+    void encryptDecrypt(std::string& value);
+    void encryptDecrypt(long long& value);
 
-		void encryptDecrypt(T& val) {}
+    template<typename T>
+    class Database {
+    private:
+        static std::shared_ptr<Database<T>> instance;
+        std::vector<std::string> keys;
+        std::vector<T> values;
+        std::string filename;
 
-	public:
-		Database(const Database&) = delete;
-		Database& operator=(const Database&) = delete;
+        // Helper function to format names
+        std::string formatName(const std::string& name) {
+            std::string formattedName = name;
+            std::replace(formattedName.begin(), formattedName.end(), '_', ' ');
+            return formattedName;
+        }
 
-		static std::shared_ptr<Database<T>> getInstance(const std::string& filename) {
-			if (!instance) {
-				instance = std::shared_ptr<Database<T>>(new Database<T>(filename));
-			}
-			return instance;
-		}
+        // Encrypt/Decrypt for type T using external functions
+        void encryptDecrypt(T& value) {
+            // This will call the appropriate function based on T
+            ::seneca::encryptDecrypt(value);
+        }
 
-		Err_Status GetValue(const std::string& key, T& value) {
-			for (int i = 0; i < entryCount; ++i) {
-				if (keys[i] == key) {
-					value = values[i];
-					encryptDecrypt(value);
-					return Err_Status::Err_Success;
-				}
-			}
-			return Err_Status::Err_NotFound;
-		}
+        Database(const std::string& filename) : filename(filename) {
+            std::cout << "[" << this << "] Database(const std::string&)" << std::endl;
+            std::ifstream file(filename);
+            std::string line;
+            while (std::getline(file, line)) {
+                std::istringstream iss(line);
+                std::string key;
+                T value;
+                if (!(iss >> key >> value)) { break; } // Error
 
-		Err_Status SetValue(const std::string& key, const T& value) {
-			if (entryCount >= 20) {
-				return Err_Status::Err_OutOfMemory;
-			}
-			keys[entryCount] = key;
-			values[entryCount] = value;
-			++entryCount;
-			return Err_Status::Err_Success;
-		}
+                key = formatName(key); // Format the name
+                encryptDecrypt(value); // Decrypt the value
+                keys.push_back(key);
+                values.push_back(value);
+            }
+        }
 
-		~Database() {
-			std::cout << "[" << this << "] ~Database()\n";
-			std::ofstream backupFile(filename + ".bkp.txt");
-			for (int i = 0; i < entryCount; ++i) {
-				backupFile << std::left << std::setw(25) << keys[i] << " -> " << values[i] << "\n";
-			}
-		}
-	};
+    public:
+        static std::shared_ptr<Database<T>> getInstance(const std::string& filename) {
+            if (!instance) {
+                instance = std::shared_ptr<Database<T>>(new Database(filename));
+            }
+            return instance;
+        }
 
-	template<typename T>
-	std::shared_ptr<Database<T>> Database<T>::instance = nullptr;
+        Err_Status GetValue(const std::string& key, T& value) const {
+            auto it = std::find(keys.begin(), keys.end(), key);
+            if (it != keys.end()) {
+                value = values[std::distance(keys.begin(), it)];
+                return Err_Status::Err_Success;
+            }
+            return Err_Status::Err_NotFound;
+        }
 
-	template<>
-	void Database<std::string>::encryptDecrypt(std::string& value) {
-		const char secret[] = "secret encryption key";
-		for (char& c : value) {
-			for (const char& k : secret) {
-				c = c ^ k;
-			}
-		}
-	}
+        Err_Status SetValue(const std::string& key, const T& value) {
+            auto it = std::find(keys.begin(), keys.end(), key);
+            if (it != keys.end()) {
+                values[std::distance(keys.begin(), it)] = value;
+            }
+            else {
+                keys.push_back(key);
+                values.push_back(value);
+            }
+            return Err_Status::Err_Success;
+        }
 
-	template<>
-	void Database<long long>::encryptDecrypt(long long& value) {
-		const char secret[] = "super secret encryption key";
-		char* valueBytes = reinterpret_cast<char*>(&value);
-		for (size_t i = 0; i < sizeof(long long); ++i) {
-			for (const char& k : secret) {
-				valueBytes[i] = valueBytes[i] ^ k;
-			}
-		}
-	}
+        ~Database() {
+            std::ofstream backupFile(filename + ".bkp.txt");
+            for (size_t i = 0; i < keys.size(); ++i) {
+                T encryptedValue = values[i];
+                encryptDecrypt(encryptedValue); // Encrypt the value
+                backupFile << keys[i] << " " << encryptedValue << "\n";
+            }
+            std::cout << "[" << this << "] ~Database()" << std::endl;
+        }
+    };
+
+    template<typename T>
+    std::shared_ptr<Database<T>> Database<T>::instance = nullptr;
+
+    // Specialization of encryptDecrypt for std::string
+    inline void encryptDecrypt(std::string& value) {
+        const char secret[] = "secret encryption key";
+        for (char& c : value) {
+            for (const char& k : secret) {
+                c ^= k;
+            }
+        }
+    }
+
+    // Specialization of encryptDecrypt for long long
+    inline void encryptDecrypt(long long& value) {
+        const char secret[] = "super secret encryption key";
+        char* valueBytes = reinterpret_cast<char*>(&value);
+        for (size_t i = 0; i < sizeof(long long); ++i) {
+            for (const char& k : secret) {
+                valueBytes[i] ^= k;
+            }
+        }
+    }
 }
 
 #endif // !SENECA_DATABASE_H
+
