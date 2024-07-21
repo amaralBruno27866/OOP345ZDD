@@ -23,6 +23,7 @@ piece of work is entirely of my own creation.
 #include <string>
 #include <vector>
 #include <type_traits>
+#include <mutex> // Include mutex header
 
 namespace seneca {
 
@@ -40,6 +41,7 @@ namespace seneca {
     class Database {
     private:
         static std::shared_ptr<Database<T>> instance;
+        static std::mutex instanceMutex; // Static mutex for thread-safe singleton implementation
         std::vector<std::string> keys;
         std::vector<T> values;
         std::string filename;
@@ -77,7 +79,10 @@ namespace seneca {
     public:
         static std::shared_ptr<Database<T>> getInstance(const std::string& filename) {
             if (!instance) {
-                instance = std::shared_ptr<Database<T>>(new Database(filename));
+                std::lock_guard<std::mutex> lock(instanceMutex); // Lock for thread safety
+                if (!instance) { // Double-checked locking
+                    instance = std::shared_ptr<Database<T>>(new Database(filename));
+                }
             }
             return instance;
         }
@@ -117,6 +122,9 @@ namespace seneca {
     template<typename T>
     std::shared_ptr<Database<T>> Database<T>::instance = nullptr;
 
+    template<typename T>
+    std::mutex Database<T>::instanceMutex; // Define the static mutex
+
     // Specialization of encryptDecrypt for std::string
     inline void encryptDecrypt(std::string& value) {
         const char secret[] = "secret encryption key";
@@ -140,4 +148,5 @@ namespace seneca {
 }
 
 #endif // !SENECA_DATABASE_H
+
 
