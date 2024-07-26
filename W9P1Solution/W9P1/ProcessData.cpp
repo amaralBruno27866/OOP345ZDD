@@ -51,15 +51,46 @@ namespace seneca
 		//         into variables "total_items" and "data". Don't forget to allocate
 		//         memory for "data".
 		//       The file is binary and has the format described in the specs.
+		std::ifstream file(filename, std::ios::binary);
 
+		if(!file) {
+			std::cerr << "Error: Cannot open file '" << filename << "'\n";
+			return;
+		}
 
+		// Read the total number od items
+		file.read(reinterpret_cast<char*>(&total_items), sizeof(total_items));
+		if (!file) {
+			std::cerr << "Error: Cannot read total_items from file " << filename << std::endl;
+		}
 
+		// Allocate memory for data
+		data = new int[total_items];
 
+		// Read the data items
+		file.read(reinterpret_cast<char*>(data), total_items * sizeof(int));
+		if (!file) {
+			std::cerr << "Error: Cannot read data from items from file " << filename << std::endl;
+			delete[] data;
+			data = nullptr;
+			total_items = 0;
+			return;
+		}
 
-		std::cout << "Item's count in file '"<< filename << "': " << total_items << std::endl;
-		std::cout << "  [" << data[0] << ", " << data[1] << ", " << data[2] << ", ... , "
-		          << data[total_items - 3] << ", " << data[total_items - 2] << ", "
-		          << data[total_items - 1] << "]\n";
+		file.close();
+
+		std::cout << "Item's count in file '" << filename << "': " << total_items << std::endl;
+		std::cout << "  [";
+		for (int i = 0; i < 5 && i < total_items; ++i) {
+			std::cout << data[i] << (i < 4 && i < total_items - 1 ? ", " : "");
+		}
+		std::cout << ", ... , ";
+		for (int i = total_items - 3; i < total_items; ++i) {
+			if (i >= 0) {
+				std::cout << data[i] << (i < total_items - 1 ? ", " : "");
+			}
+		}
+		std::cout << "]\n";
 	}
 
 	ProcessData::~ProcessData()
@@ -69,9 +100,35 @@ namespace seneca
 
 
 	// TODO Implement operator(). See workshop instructions for details.
+	int ProcessData::operator()(const std::string& target_filename, double& avg, double& var) {
+		// Compute average
+		computeAvgFactor(data, total_items, total_items, avg);
 
+		// Compute variance
+		computeVarFactor(data, total_items, total_items, avg, var);
 
+		// Open the target file in binary mode
+		std::ofstream target_file(target_filename, std::ios::binary);
+		if (!target_file) {
+			std::cerr << "Error: Cannot open target file " << target_filename << std::endl;
+			return -1;
+		}
 
+		// Write the total number of items
+		target_file.write(reinterpret_cast<const char*>(&total_items), sizeof(total_items));
+		if (!target_file) {
+			std::cerr << "Error: Cannot write total_items to target file " << target_filename << std::endl;
+			return -1;
+		}
 
+		// Write the data items
+		target_file.write(reinterpret_cast<const char*>(data), total_items * sizeof(int));
+		if (!target_file) {
+			std::cerr << "Error: Cannot write data items to target file " << target_filename << std::endl;
+			return -1;
+		}
 
+		return 0;
+
+	}
 }

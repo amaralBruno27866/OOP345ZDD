@@ -16,7 +16,7 @@ namespace seneca
 		int* data{};
 	public:
 		ProcessData(const std::string&);
-		ProcessData(const ProcessData&) = delete;
+		(const ProcessData&) = delete;
 		ProcessData& operator=(const ProcessData&) = delete;
 		~ProcessData();
 		operator bool() const;
