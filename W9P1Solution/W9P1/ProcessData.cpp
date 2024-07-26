@@ -53,24 +53,30 @@ namespace seneca
 		//       The file is binary and has the format described in the specs.
 		std::ifstream file(filename, std::ios::binary);
 
-		if(!file) {
+		if (!file) {
 			std::cerr << "Error: Cannot open file '" << filename << "'\n";
 			return;
 		}
 
-		// Read the total number od items
+		// Read the total number of items
 		file.read(reinterpret_cast<char*>(&total_items), sizeof(total_items));
 		if (!file) {
 			std::cerr << "Error: Cannot read total_items from file " << filename << std::endl;
+			return;
 		}
 
 		// Allocate memory for data
-		data = new int[total_items];
+		data = new (std::nothrow) int[total_items];
+		if (!data) {
+			std::cerr << "Error: Memory allocation failed for data\n";
+			total_items = 0;
+			return;
+		}
 
 		// Read the data items
 		file.read(reinterpret_cast<char*>(data), total_items * sizeof(int));
 		if (!file) {
-			std::cerr << "Error: Cannot read data from items from file " << filename << std::endl;
+			std::cerr << "Error: Cannot read data items from file " << filename << std::endl;
 			delete[] data;
 			data = nullptr;
 			total_items = 0;
@@ -79,10 +85,11 @@ namespace seneca
 
 		file.close();
 
+		// Print the first three and the last three data items as samples
 		std::cout << "Item's count in file '" << filename << "': " << total_items << std::endl;
 		std::cout << "  [";
-		for (int i = 0; i < 5 && i < total_items; ++i) {
-			std::cout << data[i] << (i < 4 && i < total_items - 1 ? ", " : "");
+		for (int i = 0; i < 3 && i < total_items; ++i) {
+			std::cout << data[i] << (i < 2 && i < total_items - 1 ? ", " : "");
 		}
 		std::cout << ", ... , ";
 		for (int i = total_items - 3; i < total_items; ++i) {
