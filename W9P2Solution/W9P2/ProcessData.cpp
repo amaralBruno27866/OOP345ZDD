@@ -1,3 +1,16 @@
+/*/////////////////////////////////////////////////////////////////////////
+				  Workshop - #9 P2
+Full Name  : Bruno Amaral
+Student ID#: 143766228
+Email      : bamaral2@myseneca.ca
+Section    : ZDD
+
+Authenticity Declaration:
+I declare this submission is the result of my own work and has not been
+shared with any other student or 3rd party content provider. This submitted
+piece of work is entirely of my own creation.
+/////////////////////////////////////////////////////////////////////////*/
+
 // Workshop 9 - Multi-Threading, Thread Class
 
 #include <iostream>
@@ -21,6 +34,7 @@ namespace seneca
 		for (int i = 0; i < size; i++)
 		{
 			avg += arr[i];
+			// std::this_thread::sleep_for(std::chrono::nanoseconds(1)); // This part was used just to make the reflection of the multi-threading
 		}
 		avg /= divisor;
 	}
@@ -37,6 +51,7 @@ namespace seneca
 		for (int i = 0; i < size; i++)
 		{
 			var += (arr[i] - avg) * (arr[i] - avg);
+			// std::this_thread::sleep_for(std::chrono::nanoseconds(1)); // This part was used just to make the reflection of the multi-threading
 		}
 		var /= divisor;
 	}
@@ -137,10 +152,10 @@ namespace seneca
 		size_t partition_size = total_items / num_threads;
 		std::vector<std::thread> threads;
 
-		// Compute average using multi-threading
-		for (size_t i = 0; i < num_threads; i++) {
+		/// Compute average using multi-threading
+		for (size_t i = 0; i < static_cast<size_t>(num_threads); i++) {
 			size_t start_index = i * partition_size;
-			size_t end_index = (i == num_threads - 1) ? total_items : static_cast<size_t>(start_index + partition_size);
+			size_t end_index = (i == static_cast<size_t>(num_threads) - 1) ? total_items : static_cast<size_t>(start_index + partition_size);
 			size_t size = end_index - start_index;
 			threads.emplace_back(std::bind(computeAvgFactor, data + start_index, size, total_items, std::ref(averages[i])));
 		}
@@ -150,7 +165,7 @@ namespace seneca
 		}
 
 		avg = 0.0;
-		for (int i = 0; i < num_threads; ++i) {
+		for (size_t i = 0; i < static_cast<size_t>(num_threads); ++i) {
 			avg += averages[i];
 		}
 
@@ -158,9 +173,9 @@ namespace seneca
 		threads.clear();
 
 		// Compute variance using multi-threading
-		for (size_t i = 0; i < num_threads; ++i) {
+		for (size_t i = 0; i < static_cast<size_t>(num_threads); ++i) {
 			size_t start_index = i * partition_size;
-			size_t end_index = (i == num_threads - 1) ? total_items : static_cast<size_t>(start_index + partition_size);
+			size_t end_index = (i == static_cast<size_t>(num_threads) - 1) ? total_items : static_cast<size_t>(start_index + partition_size);
 			size_t size = end_index - start_index;
 
 			threads.emplace_back(std::bind(computeVarFactor, data + start_index, size, total_items, avg, std::ref(variances[i])));
@@ -171,7 +186,7 @@ namespace seneca
 		}
 
 		var = 0.0;
-		for (int i = 0; i < num_threads; ++i) {
+		for (size_t i = 0; i < static_cast<size_t>(num_threads); ++i) {
 			var += variances[i];
 		}
 

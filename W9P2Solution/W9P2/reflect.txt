@@ -1,0 +1,22 @@
+/*/////////////////////////////////////////////////////////////////////////
+				  Workshop - #9 P2
+Full Name  : Bruno Amaral
+Student ID#: 143766228
+Email      : bamaral2@myseneca.ca
+Section    : ZDD
+
+Authenticity Declaration:
+I declare this submission is the result of my own work and has not been
+shared with any other student or 3rd party content provider. This submitted
+piece of work is entirely of my own creation.
+/////////////////////////////////////////////////////////////////////////*/
+
+Thinking from a practical point of view, binary files are actually more efficient when it comes to reading and writing data. It is much easier for the machine to do this type of thing since this is its natural language, it is the same as for us to read, understand and write a document in our native language. For example, in the "ProcessData" constructor, where we read the total number of items and the data itself in a binary file.
+
+It is important to bind the arguments to functions correctly, this way we can create an object that can be "invoked" with some attributes, this is good because it makes things simpler, it makes the code easier to understand, as an example in this workshop we used "std::bind" to bind it to the "computerAvgFactor" function and the "computerVarFactor" function, making this binding through the arguments, we can easily pass it to the thread constructor.
+
+With more threads, there is more performance, better use of the CPU, by dividing the work, we can perform calculations separately, and this helps to reduce execution time. With each thread responsible for a function, the work is carried out quickly and simply, this parallel process even allows us to handle a larger amount of data.
+
+In general terms, the use of binary files with multi-threads has made computing much more dynamic and efficient. As an example, just look at the video games that exist today and that are close to reality, with games from the 80s and 90s. Without this technology, this might not have been possible.
+
+However, I had challenges during the execution of this workshop, ensuring that the types used in comparison were consistent. To solve this, I converted "num_threads" to "size_t". It was somewhat difficult to reach this solution, but with research it was possible.
