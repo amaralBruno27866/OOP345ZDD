@@ -55,21 +55,60 @@ namespace seneca
 		//         memory for "data".
 		//       The file is binary and has the format described in the specs.
 
+		std::ifstream file(filename, std::ios::binary);
 
+		if (!file) {
+			std::cerr << "Error: Cannot open file '" << filename << "'\n";
+			return;
+		}
 
+		// Read the total number of items
+		file.read(reinterpret_cast<char*>(&total_items), sizeof(total_items));
+		if (!file) {
+			std::cerr << "Error: Cannot read total_items from file " << filename << std::endl;
+			return;
+		}
 
-		std::cout << "Item's count in file '"<< filename << "': " << total_items << std::endl;
-		std::cout << "  [" << data[0] << ", " << data[1] << ", " << data[2] << ", ... , "
-		          << data[total_items - 3] << ", " << data[total_items - 2] << ", "
-		          << data[total_items - 1] << "]\n";
+		// Allocate memory for data
+		data = new (std::nothrow) int[total_items];
+		if (!data) {
+			std::cerr << "Error: Memory allocation failed for data\n";
+			total_items = 0;
+			return;
+		}
 
-		// Following statements initialize the variables added for multi-threaded 
-		//   computation
-		num_threads = n_threads; 
+		// Read the data items
+		file.read(reinterpret_cast<char*>(data), total_items * sizeof(int));
+		if (!file) {
+			std::cerr << "Error: Cannot read data items from file " << filename << std::endl;
+			delete[] data;
+			data = nullptr;
+			total_items = 0;
+			return;
+		}
+
+		file.close();
+
+		// Print the first three and the last three data items as samples
+		std::cout << "Item's count in file '" << filename << "': " << total_items << std::endl;
+		std::cout << "  [";
+		for (int i = 0; i < 3 && i < total_items; ++i) {
+			std::cout << data[i] << (i < 2 && i < total_items - 1 ? ", " : "");
+		}
+		std::cout << ", ... , ";
+		for (int i = total_items - 3; i < total_items; ++i) {
+			if (i >= 0) {
+				std::cout << data[i] << (i < total_items - 1 ? ", " : "");
+			}
+		}
+		std::cout << "]\n";
+
+		// Initialize variables for multi-threaded computation
+		num_threads = n_threads;
 		averages = new double[num_threads] {};
 		variances = new double[num_threads] {};
-		p_indices = new int[num_threads+1] {};
-		for (int i = 0; i < num_threads+1; i++)
+		p_indices = new int[num_threads + 1] {};
+		for (int i = 0; i < num_threads + 1; i++)
 			p_indices[i] = i * (total_items / num_threads);
 	}
 
@@ -92,8 +131,57 @@ namespace seneca
 	//   part of the data. Add computed variance-factors to obtain total variance.
 	// Save the data into a file with filename held by the argument `target_file`.
 	// Also, read the workshop instruction.
+	int ProcessData::operator()(const std::string& target_file, double& avg, double& var) {
 
+		// Partition the data
+		size_t partition_size = total_items / num_threads;
+		std::vector<std::thread> threads;
 
+		// Compute average using multi-threading
+		for (size_t i = 0; i < num_threads; i++) {
+			size_t start_index = i * partition_size;
+			size_t end_index = (i == num_threads - 1) ? total_items : static_cast<size_t>(start_index + partition_size);
+			size_t size = end_index - start_index;
+			threads.emplace_back(std::bind(computeAvgFactor, data + start_index, size, total_items, std::ref(averages[i])));
+		}
 
+		for (auto& thread : threads) {
+			thread.join();
+		}
 
+		avg = 0.0;
+		for (int i = 0; i < num_threads; ++i) {
+			avg += averages[i];
+		}
+
+		// Clear threads for reuse
+		threads.clear();
+
+		// Compute variance using multi-threading
+		for (size_t i = 0; i < num_threads; ++i) {
+			size_t start_index = i * partition_size;
+			size_t end_index = (i == num_threads - 1) ? total_items : static_cast<size_t>(start_index + partition_size);
+			size_t size = end_index - start_index;
+
+			threads.emplace_back(std::bind(computeVarFactor, data + start_index, size, total_items, avg, std::ref(variances[i])));
+		}
+
+		for (auto& thread : threads) {
+			thread.join();
+		}
+
+		var = 0.0;
+		for (int i = 0; i < num_threads; ++i) {
+			var += variances[i];
+		}
+
+		// Write data to target file
+		std::ofstream ofs(target_file, std::ios::binary);
+		if (ofs) {
+			ofs.write(reinterpret_cast<char*>(&total_items), sizeof(total_items));
+			ofs.write(reinterpret_cast<char*>(data), total_items * sizeof(int));
+		}
+
+		return 0;
+	}
 }
