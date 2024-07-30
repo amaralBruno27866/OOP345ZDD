@@ -53,4 +53,24 @@ namespace seneca {
 
 		m_activeLine = reorderdLine;
 	}
+
+	bool LineManager::run(std::ostream& os)	{
+		static size_t iterationCount = 0;
+		os << "Line Manager Iteration: " << ++iterationCount << std::endl;
+
+		if (!g_pending.empty()) {
+			*m_firstStation += std::move(g_pending.front());
+			g_pending.pop_front();
+		}
+
+		for (auto& station : m_activeLine) {
+			station->fill(os);
+		}
+
+		for (auto& station : m_activeLine) {
+			station->attemptToMoveOrder();
+		}
+
+		return g_completed.size() + g_incomplete.size() == m_cntCustomerOrder;
+	}
 }
