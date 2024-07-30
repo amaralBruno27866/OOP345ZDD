@@ -41,4 +41,16 @@ namespace seneca {
 
 		m_cntCustomerOrder = g_pending.size();
 	}
+
+	void LineManager::reorderStations() {
+		std::vector<Workstation*> reorderdLine;
+		Workstation* currentStation = m_firstStation;
+
+		while (currentStation) {
+			reorderdLine.push_back(currentStation);
+			currentStation = currentStation->getNextStation();
+		}
+
+		m_activeLine = reorderdLine;
+	}
 }
