@@ -6,11 +6,11 @@
 #include "CustomerOrder.h"
 #include "Station.h"
 
-extern std::deque<seneca::CustomerOrder> g_pending;
-extern std::deque<seneca::CustomerOrder> g_completed;
-extern std::deque<seneca::CustomerOrder> g_incomplete;
-
 namespace seneca{
+	extern std::deque<seneca::CustomerOrder> g_pending;
+	extern std::deque<seneca::CustomerOrder> g_completed;
+	extern std::deque<seneca::CustomerOrder> g_incomplete;
+
 	class Workstation : public Station {
 	private:
 		std::deque<seneca::CustomerOrder> m_orders;

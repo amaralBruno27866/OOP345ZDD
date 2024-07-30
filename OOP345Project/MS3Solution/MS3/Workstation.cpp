@@ -2,11 +2,11 @@
 #include <iostream>
 #include "Workstation.h"
 
-std::deque<seneca::CustomerOrder> g_pending;
-std::deque<seneca::CustomerOrder> g_completed;
-std::deque<seneca::CustomerOrder> g_incomplete;
-
 namespace seneca {
+	std::deque<seneca::CustomerOrder> g_pending;
+	std::deque<seneca::CustomerOrder> g_completed;
+	std::deque<seneca::CustomerOrder> g_incomplete;
+
 	Workstation::Workstation(const std::string& str) : Station(str), m_pNextStation(nullptr) {}
 
 	void Workstation::fill(std::ostream& os) {
