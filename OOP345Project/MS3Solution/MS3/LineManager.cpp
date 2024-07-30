@@ -1,6 +1,14 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <fstream>
 #include <algorithm>
+// Name: Bruno Amaral
+// Seneca Student ID: 143766228
+// Seneca email: bamaral2@myseneca.ca
+// Date of completion: 2024-07-30
+//
+// I confirm that I am the only author of this file
+//   and the content was created entirely by me.
+
 #include <iostream>
 #include "LineManager.h"
 
