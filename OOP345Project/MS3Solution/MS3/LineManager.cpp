@@ -1,6 +1,3 @@
-#define _CRT_SECURE_NO_WARNINGS
-#include <fstream>
-#include <algorithm>
 // Name: Bruno Amaral
 // Seneca Student ID: 143766228
 // Seneca email: bamaral2@myseneca.ca
@@ -8,8 +5,11 @@
 //
 // I confirm that I am the only author of this file
 //   and the content was created entirely by me.
-
+#define _CRT_SECURE_NO_WARNINGS
+#include <fstream>
+#include <algorithm>
 #include <iostream>
+#include <unordered_set>
 #include "LineManager.h"
 
 namespace seneca {
@@ -22,8 +22,16 @@ namespace seneca {
 		std::string record;
 		while (std::getline(inputFile, record)) {
 			size_t delimiterPos = record.find('|');
-			std::string currentStationName = record.substr(0, delimiterPos);
-			std::string nextStationName = record.substr(delimiterPos + 1);
+			std::string currentStationName{};
+			std::string nextStationName{};
+
+			if (delimiterPos == std::string::npos) {
+				currentStationName = record;
+			}
+			else {
+				currentStationName = record.substr(0, delimiterPos);
+				nextStationName = record.substr(delimiterPos + 1);
+			}
 
 			auto currentStation = std::find_if(stations.begin(), stations.end(), [&](Workstation* ws) {
 				return ws->getItemName() == currentStationName;
@@ -44,8 +52,8 @@ namespace seneca {
 		m_firstStation = *std::find_if(stations.begin(), stations.end(), [&](Workstation* ws) {
 			return std::none_of(stations.begin(), stations.end(), [&](Workstation* otherws) {
 				return otherws->getNextStation() == ws;
+				});
 			});
-		});
 
 		m_cntCustomerOrder = g_pending.size();
 	}
@@ -62,7 +70,7 @@ namespace seneca {
 		m_activeLine = reorderdLine;
 	}
 
-	bool LineManager::run(std::ostream& os)	{
+	bool LineManager::run(std::ostream& os) {
 		static size_t iterationCount = 0;
 		os << "Line Manager Iteration: " << ++iterationCount << std::endl;
 
@@ -78,6 +86,11 @@ namespace seneca {
 		for (auto& station : m_activeLine) {
 			station->attemptToMoveOrder();
 		}
+
+		// Debug output to track the number of completed and incomplete orders
+		os << "Completed Orders: " << g_completed.size() << std::endl;
+		os << "Incomplete Orders: " << g_incomplete.size() << std::endl;
+		os << "Total Orders: " << m_cntCustomerOrder << std::endl;
 
 		return g_completed.size() + g_incomplete.size() == m_cntCustomerOrder;
 	}
