@@ -1,10 +1,11 @@
 // Name: Bruno Amaral
 // Seneca Student ID: 143766228
 // Seneca email: bamaral2@myseneca.ca
-// Date of completion: 2024-07-30
+// Date of completion: August 4th, 2024
 //
 // I confirm that I am the only author of this file
 //   and the content was created entirely by me.
+
 #ifndef SENECA_CUSTOMERORDER_H
 #define SENECA_CUSTOMERORDER_H
 

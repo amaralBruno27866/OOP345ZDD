@@ -1,10 +1,11 @@
 // Name: Bruno Amaral
 // Seneca Student ID: 143766228
 // Seneca email: bamaral2@myseneca.ca
-// Date of completion:
+// Date of completion: August 4th, 2024
 //
 // I confirm that I am the only author of this file
 //   and the content was created entirely by me.
+
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <string>
@@ -30,18 +31,15 @@ namespace seneca {
 		bool more = true;
 
 		// Extract the tokens.
-		std::string token;
-
-		// Extract the tokens.
 		m_itemName = u.extractToken(record, next_pos, more);
 		m_serialNumber = std::stoi(u.extractToken(record, next_pos, more));
 		m_quantityInStock = std::stoi(u.extractToken(record, next_pos, more));
 
+		m_widthField = std::max(m_widthField, u.getFieldWidth());
+
 		// If there are more tokens, extract them.
 		if (more) {
-			std::string desc = u.extractToken(record, next_pos, more);
-			m_stationDesc = desc;
-			m_widthField = std::max(m_widthField, u.getFieldWidth());
+			m_stationDesc = u.extractToken(record, next_pos, more);
 		}
 
 		// Set the ID of the station.

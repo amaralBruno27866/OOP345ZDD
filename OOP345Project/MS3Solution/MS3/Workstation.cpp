@@ -1,7 +1,7 @@
 // Name: Bruno Amaral
 // Seneca Student ID: 143766228
 // Seneca email: bamaral2@myseneca.ca
-// Date of completion: 2024-07-30
+// Date of completion: August 4th, 2024
 //
 // I confirm that I am the only author of this file
 //   and the content was created entirely by me.
@@ -24,25 +24,26 @@ namespace seneca {
 	}
 
 	bool Workstation::attemptToMoveOrder() {
-		bool isValid = false;
+		bool mv = false;
 		if (!m_orders.empty()) {
 			if (m_orders.front().isItemFilled(getItemName()) || getQuantity() == 0) {
+				CustomerOrder co = std::move(m_orders.front());
+				m_orders.pop_front();
 				if (m_pNextStation) {
-					*m_pNextStation += std::move(m_orders.front());
+					*m_pNextStation += std::move(co);
 				}
 				else {
-					if (m_orders.front().isOrderFilled()) {
-						g_completed.push_back(std::move(m_orders.front()));
+					if (co.isOrderFilled()) {
+						g_completed.push_back(std::move(co));
 					}
 					else {
-						g_incomplete.push_back(std::move(m_orders.front()));
+						g_incomplete.push_back(std::move(co));
 					}
+					mv = true;
 				}
-				m_orders.pop_front();
-				isValid = true;
 			}
 		}
-		return isValid;
+		return mv;
 	}
 
 	void Workstation::setNextStation(Workstation* station) {

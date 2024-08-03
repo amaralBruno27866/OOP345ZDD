@@ -1,10 +1,11 @@
 // Name: Bruno Amaral
 // Seneca Student ID: 143766228
 // Seneca email: bamaral2@myseneca.ca
-// Date of completion: 2024-07-30
+// Date of completion: August 4th, 2024
 //
 // I confirm that I am the only author of this file
 //   and the content was created entirely by me.
+
 #define _CRT_SECURE_NO_WARNINGS
 #include <fstream>
 #include <algorithm>
@@ -75,24 +76,20 @@ namespace seneca {
 		os << "Line Manager Iteration: " << ++iterationCount << std::endl;
 
 		if (!g_pending.empty()) {
-			*m_firstStation += std::move(g_pending.front());
+			CustomerOrder co = std::move(g_pending.front());
 			g_pending.pop_front();
+			*m_firstStation += std::move(co);
 		}
 
-		for (auto& station : m_activeLine) {
+		for(auto& station : m_activeLine) {
 			station->fill(os);
 		}
 
-		for (auto& station : m_activeLine) {
+		for(auto& station : m_activeLine) {
 			station->attemptToMoveOrder();
 		}
 
-		// Debug output to track the number of completed and incomplete orders
-		os << "Completed Orders: " << g_completed.size() << std::endl;
-		os << "Incomplete Orders: " << g_incomplete.size() << std::endl;
-		os << "Total Orders: " << m_cntCustomerOrder << std::endl;
-
-		return g_completed.size() + g_incomplete.size() == m_cntCustomerOrder;
+		return ((g_incomplete.size() + g_completed.size()) == m_cntCustomerOrder);
 	}
 
 	void LineManager::display(std::ostream& os) const {

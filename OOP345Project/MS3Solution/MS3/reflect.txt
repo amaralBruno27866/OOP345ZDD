@@ -5,3 +5,25 @@
 //
 // I confirm that I am the only author of this file
 //   and the content was created entirely by me.
+
+=> Reflection on the project
+In this work, we had to simulate an assembly line, and for this we used the Standard Template Library (STL) throughout the process.
+
+=> Object-oriented programming (OOP)
+To make the program more flexible, we used object-oriented programming, where we applied concepts such as polymorphism, inheritance and encapsulation.
+
+=> Resource management
+Since there were several files to be read, resource management was used to the maximum, through copy move assignment move operators, which added an extra layer of difficulty.
+
+=> Standard Template Library (STL)
+The STL library was used throughout the development process, functions such as find_if, move and containers such as deque, list, vector, all to help organize and process information more quickly.
+
+=> Exception Handling and File I/O
+Error handling was applied at various points in the code, since dealing with resource management and memory allocation can always cause potential errors.
+
+=> Conclusion
+This project shows the dynamism and flexibility that object-oriented programming can present, resource management, object creation and handling, as well as error handling and the use of libraries that help develop cleaner, easier-to-understand code.
+
+Although my greatest difficulty was in understanding what was expected through the description of the milestone, the ideas were often poorly described or too direct, which left no room for interpretation in some parts, and in others there was a lack of explanation that would make it easier to arrive at an approach.
+
+If the objective was to test the ability and creativity of students, I think that to those who actually managed to solve the entire milestone without anyone's help, I would like to congratulate them, because on several occasions I had to consult friends and external materials to be able to reach a solution.

@@ -1,7 +1,7 @@
 // Name: Bruno Amaral
 // Seneca Student ID: 143766228
 // Seneca email: bamaral2@myseneca.ca
-// Date of completion: 2024-07-30
+// Date of completion: August 4th, 2024
 //
 // I confirm that I am the only author of this file
 //   and the content was created entirely by me.
@@ -16,9 +16,9 @@
 namespace seneca {
 	class LineManager {
 	private:
-		std::vector<Workstation*> m_activeLine;
-		size_t m_cntCustomerOrder;
-		Workstation* m_firstStation;
+		std::vector<Workstation*> m_activeLine{};
+		size_t m_cntCustomerOrder{};
+		Workstation* m_firstStation{};
 	public:
 		LineManager(const std::string& file, const std::vector<Workstation*>& stations);
 		void reorderStations();

@@ -1,10 +1,11 @@
 // Name: Bruno Amaral
 // Seneca Student ID: 143766228
 // Seneca email: bamaral2@myseneca.ca
-// Date of completion: 2024-07-30
+// Date of completion: August 4th, 2024
 //
 // I confirm that I am the only author of this file
 //   and the content was created entirely by me.
+
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <iomanip>
@@ -60,17 +61,16 @@ namespace seneca {
 
 	CustomerOrder& CustomerOrder::operator=(CustomerOrder&& co) noexcept {
 		if (this != &co) {
+			m_name = std::move(co.m_name);
+			m_product = std::move(co.m_product);
 			for (size_t i = 0; i < m_cntItem; i++) {
 				delete m_lstItem[i];
 			}
 			delete[] m_lstItem;
-			m_name = std::move(co.m_name);
-			m_product = std::move(co.m_product);
 			m_cntItem = co.m_cntItem;
-			m_lstItem = co.m_lstItem;
-
-			co.m_lstItem = nullptr;
 			co.m_cntItem = 0;
+			m_lstItem = co.m_lstItem;
+			co.m_lstItem = nullptr;
 		}
 		return *this;
 	}
@@ -89,16 +89,14 @@ namespace seneca {
 				isTrue = false;
 			}
 		}
-		return isTrue;;
+		return isTrue;
 	}
 
 	bool CustomerOrder::isItemFilled(const std::string& itemName) const {
 		bool fail = true;
 		for(size_t i = 0; i < m_cntItem; i++) {
-			if (m_lstItem[i]->m_itemName == itemName) {
-				if (!m_lstItem[i]->m_isFilled) {
-					fail = false;
-				}
+			if (m_lstItem[i]->m_itemName == itemName && !m_lstItem[i]->m_isFilled) {
+				fail = false;
 			}
 		}
 		return fail;
@@ -107,12 +105,14 @@ namespace seneca {
 	void CustomerOrder::fillItem(Station& station, std::ostream& os) {
 		bool itemFound = false;
 		for (size_t i = 0; i < m_cntItem && !itemFound; i++) {
-			if (m_lstItem[i]->m_itemName == station.getItemName()) {
-				itemFound = true;
-				if (!m_lstItem[i]->m_isFilled && station.getQuantity() > 0) {
+			if (!m_lstItem[i]->m_isFilled && m_lstItem[i]->m_itemName == station.getItemName()) {
+				if (station.getQuantity() > 0) {
 					m_lstItem[i]->m_serialNumber = station.getNextSerialNumber();
-					m_lstItem[i]->m_isFilled = true;
 					station.updateQuantity();
+
+					m_lstItem[i]->m_isFilled = true;
+					itemFound = true;
+
 					os << "    Filled " << m_name;
 					os << ", ";
 					os << m_product;
@@ -121,7 +121,7 @@ namespace seneca {
 					os << "]" << std::endl;
 				}
 				else {
-					os << "Unable to fill " << m_name;
+					os << "    Unable to fill " << m_name;
 					os << ", ";
 					os << m_product;
 					os << " [";
@@ -130,9 +130,6 @@ namespace seneca {
 				}
 			}
 		}
-		//if (!itemFound) {
-		//	throw std::logic_error("Item not found");
-		//}
 	}
 
 	void CustomerOrder::display(std::ostream& os) const	{
@@ -142,7 +139,12 @@ namespace seneca {
 			os << "[" << std::setw(6) << std::setfill('0') << m_lstItem[i]->m_serialNumber << "] ";
 			os << std::left << std::setw(m_widthField) << std::setfill(' ') << m_lstItem[i]->m_itemName;
 			os << " - ";
-			os << (m_lstItem[i]->m_isFilled ? "FILLED" : "TO BE FILLED");
+			if(m_lstItem[i]->m_isFilled) {
+				os << "FILLED";
+			}
+			else {
+				os << "TO BE FILLED";
+			}
 			os << "\n";
 		}
 	}
