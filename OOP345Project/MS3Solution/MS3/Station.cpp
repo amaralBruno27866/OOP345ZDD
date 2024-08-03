@@ -71,7 +71,7 @@ namespace seneca {
 
 	// Displays the station information.
 	void Station::display(std::ostream& os, bool full) const {
-		os << std::setw(3) << std::setfill('0') << m_id;
+		os << std::setw(3) << std::right << std::setfill('0') << m_id << " | ";
 		os << " | ";
 		os << std::left << std::setw(14) << std::setfill(' ') << m_itemName;
 		os << " | ";
