@@ -22,9 +22,9 @@
 - Workshop #8 Part1 - done
 - Workshop #8 Part2 - done - 10/10
 - Workshop #9 Part1 - done
-- Workshop #9 Part2 - done -
+- Workshop #9 Part2 - done - 10/10
 
 # MILESTONE PROJECT
 - Milestone #1 - done - 100%
 - MIlestone #2 - done - 100%
-- Milestone #3 - started - 83.25%
+- Milestone #3 - done - 100%
